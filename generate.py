@@ -117,12 +117,11 @@ _METRIC_ORDER = ("охват", "показы", "клики", "cpm", "ctr", "cpc"
 
 
 def bench_table(client_key, source_key, niche_rows):
-    """Таблица бенчмарков: средние Click Out + строки под нишу.
+    """Таблица бенчмарков по сегментам ниши.
     Значения берутся из benchmarks.csv; пустая ячейка → «после сбора»."""
-    avg = BENCH_AVG[source_key]
-    rows = f"""
-      <tr><td>Средние Click Out (клиенты СРК)</td><td>—</td><td>—</td><td>—</td><td>{avg['cpm']}</td><td>{avg['ctr']}</td><td>{avg['cpc']}</td></tr>"""
+    rows = ""
     filled_any = False
+    filled_all = True
     for r in niche_rows:
         vals = BENCHMARKS.get((client_key, source_key, r), {})
         cells = ""
@@ -132,10 +131,13 @@ def bench_table(client_key, source_key, niche_rows):
                 filled_any = True
                 cells += f"<td>{v}</td>"
             else:
+                filled_all = False
                 cells += '<td class="tbd">после сбора</td>'
         rows += f"""
       <tr><td>{r}</td>{cells}</tr>"""
-    note = ("<b>Часть бенчмарков уже снята из кабинетов площадки</b> — оставшиеся ячейки будут "
+    note = ("<b>Бенчмарки сняты из рекламных кабинетов площадки</b> по всем выбранным сегментам; "
+            "перед стартом значения сверяются прогнозаторами кабинетов." if filled_all else
+            "<b>Часть бенчмарков уже снята из кабинетов площадки</b> — оставшиеся ячейки будут "
             "добавлены в финальную версию аудита." if filled_any else
             "<b>Бенчмарки по выбранным сегментам собираются в рекламных кабинетах площадки</b> — "
             "охват, показы, клики, CPM, CTR, CPC по каждому сегменту будут добавлены в финальную версию аудита.")
