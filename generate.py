@@ -96,23 +96,57 @@ def seg_list(items):
 def pills(items):
     return "".join(f'<div class="pill">{i}</div>' for i in items)
 
-def bench_table(source_key, niche_rows):
-    """Таблица бенчмарков: средние Click Out + строки под нишу (заполняются после сбора)."""
+def load_benchmarks():
+    """benchmarks.csv (разделитель ;) → {(client_key, source, segment): {метрика: значение}}.
+    Пустые ячейки = ещё не собрано."""
+    import csv, pathlib
+    path = pathlib.Path(__file__).parent / "benchmarks.csv"
+    data = {}
+    if not path.exists():
+        return data
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        for row in csv.DictReader(f, delimiter=";"):
+            key = (row["client_key"].strip(), row["source"].strip(), row["segment"].strip())
+            data[key] = {m: (row.get(m) or "").strip() for m in
+                         ("охват", "показы", "клики", "cpm", "ctr", "cpc")}
+    return data
+
+
+BENCHMARKS = load_benchmarks()
+_METRIC_ORDER = ("охват", "показы", "клики", "cpm", "ctr", "cpc")
+
+
+def bench_table(client_key, source_key, niche_rows):
+    """Таблица бенчмарков: средние Click Out + строки под нишу.
+    Значения берутся из benchmarks.csv; пустая ячейка → «после сбора»."""
     avg = BENCH_AVG[source_key]
     rows = f"""
-      <tr><td>Средние Click Out (клиенты СРК)</td><td>{avg['ctr']}</td><td>{avg['cpc']}</td><td>{avg['cpm']}</td><td>—</td><td>—</td></tr>"""
+      <tr><td>Средние Click Out (клиенты СРК)</td><td>—</td><td>—</td><td>—</td><td>{avg['cpm']}</td><td>{avg['ctr']}</td><td>{avg['cpc']}</td></tr>"""
+    filled_any = False
     for r in niche_rows:
+        vals = BENCHMARKS.get((client_key, source_key, r), {})
+        cells = ""
+        for m in _METRIC_ORDER:
+            v = vals.get(m, "")
+            if v:
+                filled_any = True
+                cells += f"<td>{v}</td>"
+            else:
+                cells += '<td class="tbd">после сбора</td>'
         rows += f"""
-      <tr><td>{r}</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>"""
+      <tr><td>{r}</td>{cells}</tr>"""
+    note = ("<b>Часть бенчмарков уже снята из кабинетов площадки</b> — оставшиеся ячейки будут "
+            "добавлены в финальную версию аудита." if filled_any else
+            "<b>Бенчмарки по выбранным сегментам собираются в рекламных кабинетах площадки</b> — "
+            "охват, показы, клики, CPM, CTR, CPC по каждому сегменту будут добавлены в финальную версию аудита.")
     return f"""
     <table class="bench">
-      <tr><th>Сегмент / формат</th><th>CTR</th><th>CPC</th><th>CPM</th><th>Охват</th><th>Показы</th></tr>{rows}
+      <tr><th>Сегмент / формат</th><th>Охват</th><th>Показы</th><th>Клики</th><th>CPM</th><th>CTR</th><th>CPC</th></tr>{rows}
     </table>
-    <div class="note"><b>Бенчмарки по выбранным сегментам собираются в рекламных кабинетах площадки</b> —
-    охват, показы, клики, CPM, CTR, CPC по каждому сегменту будут добавлены в финальную версию аудита.</div>"""
+    <div class="note">{note}</div>"""
 
 
-def build(c):
+def build(client_key, c):
     n = [0]
     def num():
         n[0] += 1
@@ -217,7 +251,7 @@ def build(c):
   <div class="num">{num()}</div>
   <div class="kicker"><div class="bar"></div><span>Ozon Performance · Бенчмарки</span></div>
   <h2>Бенчмарки для предварительного расчёта</h2>
-  {bench_table('ozon', c['ozon_bench_rows'])}
+  {bench_table(client_key, 'ozon', c['ozon_bench_rows'])}
   <div class="mark">Ц</div>
 </section>""")
 
@@ -265,7 +299,7 @@ def build(c):
   <div class="num">{num()}</div>
   <div class="kicker"><div class="bar"></div><span>Яндекс Urban Ads · Бенчмарки</span></div>
   <h2>Бенчмарки для предварительного расчёта</h2>
-  {bench_table('urban', c['ym_bench_rows'])}
+  {bench_table(client_key, 'urban', c['ym_bench_rows'])}
   <div class="mark">Ц</div>
 </section>""")
 
@@ -291,7 +325,7 @@ def build(c):
   <div class="num">{num()}</div>
   <div class="kicker"><div class="bar"></div><span>WB Media · Бенчмарки</span></div>
   <h2>Бенчмарки для предварительного расчёта</h2>
-  {bench_table('wb', c['wb_bench_rows'])}
+  {bench_table(client_key, 'wb', c['wb_bench_rows'])}
   <div class="mark">Ц</div>
 </section>""")
 
@@ -510,7 +544,7 @@ if __name__ == "__main__":
     import pathlib
     root = pathlib.Path(__file__).parent
     for key, c in CLIENTS.items():
-        html = build(c)
+        html = build(key, c)
         (root / c["file"]).write_text(html, encoding="utf-8")
         print(f"OK {c['file']} ({len(html)} bytes)")
     (root / "index.html").write_text(build_index(), encoding="utf-8")
