@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Предварительный аудит · Баггаж (baggage.ru) · Cerebro Click Out</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --card:#272727; --card2:#111;
+    --txt:#E7E6E6; --mute:#A5A5A5; --yellow:#FDD101; --white:#fff;
+    --head:'Unbounded', Arial, sans-serif; --body:Arial, Helvetica, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--body)}
+  section{min-height:100vh;padding:6vh 7vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-bottom:1px solid #1a1a1a}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .kicker .bar{width:44px;height:8px;background:var(--yellow)}
+  .kicker span{font-family:var(--head);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--yellow);text-transform:uppercase}
+  .num{position:absolute;top:5vh;right:7vw;color:var(--mute);font-size:14px}
+  h1{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(28px,4.6vw,58px);line-height:1.1;margin-bottom:24px}
+  h2{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(23px,3.2vw,42px);line-height:1.14;margin-bottom:26px}
+  .sub{font-size:clamp(16px,1.6vw,22px);line-height:1.45;max-width:70ch}
+  .sub b{color:var(--white)}
+  .yline{color:var(--yellow);font-family:var(--head);font-weight:700;font-size:clamp(16px,1.7vw,24px);margin-top:32px;line-height:1.3}
+  .logo{display:flex;align-items:center;gap:16px;margin-bottom:44px}
+  .logo .sign{width:56px;height:56px;background:var(--white);border:7px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:26px}
+  .logo .nm{font-family:var(--head);font-weight:700;color:var(--white);font-size:18px;line-height:1.25}
+  .mark{position:absolute;bottom:5vh;right:7vw;width:38px;height:38px;background:var(--white);border:5px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:17px;opacity:.9}
+  .cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:10px}
+  .card{background:var(--card);border-radius:18px;padding:26px 28px}
+  .card h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:12px}
+  .card p{font-size:clamp(13px,1.15vw,17px);line-height:1.5;color:var(--txt)}
+  .card .big{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(26px,3.2vw,44px);line-height:1;margin-bottom:10px}
+  .card .cap{color:var(--mute);font-size:13px;margin-top:12px;line-height:1.4}
+  .stats{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:14px}
+  .stat .n{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(30px,4vw,56px);line-height:1}
+  .stat .t{color:var(--txt);font-size:clamp(13px,1.15vw,17px);margin-top:10px;line-height:1.4}
+  .rows{margin-top:12px;max-width:1150px}
+  .row{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:26px;padding:20px 0;border-top:1px solid #232323;align-items:start}
+  .row .l{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(14px,1.3vw,19px)}
+  .row .r{font-size:clamp(14px,1.2vw,18px);line-height:1.5}
+  .foot{margin-top:34px;color:var(--mute);font-size:clamp(12px,1vw,15px);line-height:1.5;max-width:80ch}
+  .price{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:10px}
+  .p{background:var(--card2);border:1px solid #262626;border-radius:18px;padding:26px 28px;position:relative}
+  .p.best{border-color:var(--yellow)}
+  .p .tag{position:absolute;top:-13px;left:26px;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px}
+  .p h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:16px}
+  .p .was{color:var(--mute);text-decoration:line-through;font-size:15px}
+  .p .now{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(24px,2.8vw,38px);line-height:1.1;margin:6px 0 4px}
+  .p .per{color:var(--mute);font-size:13px}
+  .p ul{list-style:none;margin-top:16px}
+  .p li{font-size:clamp(13px,1.1vw,16px);line-height:1.5;padding-left:18px;position:relative;margin-bottom:8px}
+  .p li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg{list-style:none;margin-top:6px}
+  ul.seg li{font-size:clamp(14px,1.2vw,18px);line-height:1.55;padding-left:20px;position:relative;margin-bottom:9px}
+  ul.seg li:before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg li b{color:var(--white)}
+  .grid2{display:grid;gap:34px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin-top:10px}
+  .colh{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.5vw,21px);margin-bottom:14px}
+  table.bench{border-collapse:collapse;margin-top:14px;width:100%;max-width:1100px}
+  table.bench th{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(12px,1.05vw,15px);text-align:left;padding:12px 16px;border-bottom:2px solid var(--yellow);text-transform:uppercase;letter-spacing:.05em}
+  table.bench td{font-size:clamp(13px,1.15vw,17px);padding:12px 16px;border-bottom:1px solid #232323;line-height:1.45}
+  table.bench td:first-child{font-family:var(--head);font-weight:700;color:var(--white)}
+  table.bench .tbd{color:var(--mute)}
+  .pill{display:inline-block;background:#151515;border:1px solid #333;border-radius:100px;color:var(--txt);font-size:clamp(12px,1.05vw,15px);padding:8px 16px;margin:0 8px 10px 0;line-height:1.4}
+  .pill b{color:var(--yellow);font-family:var(--head);font-weight:700}
+  .note{display:inline-block;background:#0d0d0d;border-left:5px solid var(--yellow);border-radius:0 12px 12px 0;padding:16px 20px;margin-top:24px;font-size:clamp(13px,1.1vw,16px);line-height:1.55;color:#cfcfcf;max-width:80ch}
+  .note b{color:var(--white)}
+  @media screen and (max-width:1100px){
+    .price{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr;gap:8px}
+    .grid2{grid-template-columns:1fr}
+    section{padding:7vh 8vw}
+  }
+  @media print{
+    @page{size:1600px 1500px;margin:0}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    html,body{background:#000}
+    section{min-height:auto;height:auto;page-break-inside:avoid;page-break-after:always;padding:70px 90px;border-bottom:none;justify-content:flex-start}
+    .num{top:60px;right:90px}
+    .mark{bottom:60px;right:90px}
+  }
+</style>
+</head>
+<body>
+
+<section>
+  <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
+  <div class="kicker"><div class="bar"></div><span>Предварительный аудит · Направление Click Out</span></div>
+  <h1>Предварительный аудит:<br>Баггаж · baggage.ru</h1>
+  <p class="sub">Запуск рекламы сервиса доставки багажа в источниках Ozon Performance, Яндекс Urban Ads и Wildberries Click Out + карта каналов, которые вы сами назвали на встрече: ВК, посевы, Telega.in, Директ — всё через одно окно, с приземлением на <b>baggage.ru</b>.</p>
+  <div class="yline">Ozon Performance · Яндекс Urban Ads · WB Media</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">02</div>
+  <div class="kicker"><div class="bar"></div><span>Что мы услышали на встрече</span></div>
+  <h2>Точка старта: как это устроено<br>у вас сейчас</h2>
+  <div class="rows"><div class="row"><div class="l">Как приходят клиенты</div><div class="r">«Яндекс, 2ГИС и карты» — локальный трафик точек в Домодедово и на Павелецком.</div></div><div class="row"><div class="l">Что хотели бы поменять</div><div class="r">«ВК, посевы, Макс, Телега Ин, Директ, Ozon Performance, Urban» — прямой запрос на набор источников; и Click Out, и рессейлинг из этого списка открываются у нас.</div></div><div class="row"><div class="l">Стоимость заявки</div><div class="r">«Динамика положительная» — канал управляется; добавляем новые источники до того, как действующие упрутся в потолок.</div></div><div class="row"><div class="l">Узнаваемость</div><div class="r">«Работают, интересен брендформанс» — для сервиса-первопроходца категории узнаваемость и есть создание рынка.</div></div><div class="row"><div class="l">Реклама до заявки или до выручки</div><div class="r">«До выручки» — считаете кассой; lift-замеры построим на данных заказов.</div></div><div class="row"><div class="l">Диагноз</div><div class="r">Новая категория с несформированным спросом: люди не ищут «доставку багажа», потому что не знают, что она существует. Классическая задача создания спроса — профиль Click Out и медийки.</div></div>
+  </div>
+  <div class="foot">Источник: разговор на выставке ОТДЫХ Leisure · 02–04.09.2026. Формулировки сохранены близко к сказанному — если что-то передано неточно, поправим на созвоне.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">03</div>
+  <div class="kicker"><div class="bar"></div><span>Ваша ниша в цифрах</span></div>
+  <h2>Новая категория на рынке<br>214 млн авиапассажиров</h2>
+  <div class="stats"><div class="stat"><div class="n">214,7 млн</div><div class="t">пассажиров — авиапоток аэропортов РФ за 2025 год</div></div><div class="stat"><div class="n">8 500+</div><div class="t">мест багажа сервис обработал за первые месяцы работы</div></div><div class="stat"><div class="n">1 990 ₽</div><div class="t">фиксированный тариф за место багажа по Москве</div></div><div class="stat"><div class="n">$8,2 млрд</div><div class="t">прогноз мирового рынка доставки багажа к 2029 году (+8% в год)</div></div>
+  </div>
+  <p class="sub" style="margin-top:34px">«Баггаж» — первый в РФ сервис курьерской доставки багажа из аэропорта (запуск — ноябрь 2025, Домодедово; сейчас также Павелецкий вокзал, Пулково, Сочи, доставка покупок из ТЦ «Охотный Ряд»). В категорию уже смотрят гиганты: у СДЭК есть услуга доставки багажа, РЖД пилотирует «от дома до вагона» до конца 2026. Окно первопроходца ограничено — узнаваемость, набранная сейчас, станет защитным активом, когда категорию начнут строить конкуренты с большими бюджетами.</p>
+  <div class="foot">Источники: aviaport.ru / Росавиация (2026), tass.ru (2025), rst.ru (2026), tourdom.ru (2025), thebusinessresearchcompany.com (2025).</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">04</div>
+  <div class="kicker"><div class="bar"></div><span>Согласование проекта</span></div>
+  <h2>Запуск с Ozon Performance,<br>Яндекс Urban Ads и WB Media</h2>
+  <p class="sub">Для запуска проекта с рекламными платформами Ozon Performance, Яндекс Urban Ads и
+  Wildberries Click Out необходимо предварительное согласование площадок. При положительном решении
+  создание кабинетов занимает <b>3–5 рабочих дней</b>.</p>
+  <div class="cards" style="margin-top:26px">
+    <div class="card"><h3>Кабинеты для внешнего трафика</h3>
+      <p>В Ozon, Яндекс Urban Ads и Wildberries есть рекламные кабинеты, с которых можно вести трафик
+      внешним рекламодателям — на ваш сайт, а не на карточку товара.</p></div>
+    <div class="card"><h3>Аудитория в режиме покупки</h3>
+      <p>Люди приходят на маркетплейс с уже сформированным желанием купить. Услуги в каталогах площадок
+      не продаются — за эту аудиторию с вами почти никто не конкурирует.</p></div>
+    <div class="card"><h3>Прогноз по вашему проекту</h3>
+      <p>Услуга вне товарных каталогов — на площадках не продаётся, конкуренции в аукционе нет. Аудитория точная: люди, покупающие чемоданы, товары для поездок и зимний спортинвентарь, — это буквально люди с багажом. Прогнозируем высокую совместимость формата с проектом.</p></div>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">05</div>
+  <div class="kicker"><div class="bar"></div><span>Ozon Performance · Таргетинги</span></div>
+  <h2>Ozon Performance: кого можем<br>выбирать для показа</h2>
+  <div class="rows">
+    <div class="row"><div class="l">Авторизация</div><div class="r">Все покупатели · Неавторизованные · Авторизованные</div></div>
+    <div class="row"><div class="l">Демография</div><div class="r">Пол, возраст</div></div>
+    <div class="row"><div class="l">Регион</div><div class="r">Область, город</div></div>
+    <div class="row"><div class="l">Сегменты</div><div class="r">Покупают в категории · Смотрят категорию · Активный Premium · Клиент B2B · Собственный сегмент из номеров телефонов (хэш)</div></div>
+  </div>
+  <div class="foot">Форматы: видеобаннер, баннер на главной и в поиске, размещение в карточке товара, экран «заказ выполнен». 65 млн активных покупателей за 2025 год, в среднем 38 заказов на человека.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">06</div>
+  <div class="kicker"><div class="bar"></div><span>Ozon Performance · Сегменты</span></div>
+  <h2>Сегменты под Баггаж</h2>
+  <p class="sub">Сегменты собраны из категорий каталога Ozon 1-го и 2-го уровня, которые формируют
+  ваших потенциальных клиентов:</p>
+  <div class="grid2">
+    <div><div class="colh">Основные сегменты</div><ul class="seg"><li>Смотрят / покупают в категории <b>«Аксессуары → Путешествия»</b> — чемоданы, дорожные сумки, весы и тележки для багажа</li><li>Пользователи <b>Ozon Travel</b> (авиабилеты) — улетают и прилетают: момент потребности</li><li>Покупают в категории <b>«Спорт и отдых → Зимний спорт»</b> — лыжи и сноуборды, крупногабаритный багаж</li><li>Покупают в категории <b>«Детские товары»</b> — семьи с детьми: багажа больше, руки заняты</li><li>Сегмент <b>«Клиент B2B»</b> — командировочные и корпоративные сценарии</li></ul></div>
+    <div><div class="colh">Дополнительные фильтры</div><ul class="seg"><li>Гео: Москва и область, Санкт-Петербург, Сочи — города присутствия сервиса</li><li>Возраст: 25–55</li><li>Доход: Premium-подписка как прокси платёжеспособности</li><li>Пол: любой</li></ul></div>
+  </div>
+  <div class="note">Ключевое отличие от классических каналов: на Ozon мы ловим человека в момент подготовки к поездке (купил чемодан → покажем доставку багажа), а не в момент поиска услуги, которого в новой категории ещё нет.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">07</div>
+  <div class="kicker"><div class="bar"></div><span>Ozon Performance · Бенчмарки</span></div>
+  <h2>Бенчмарки для предварительного расчёта</h2>
+  
+    <table class="bench">
+      <tr><th>Сегмент / формат</th><th>CTR</th><th>CPC</th><th>CPM</th><th>Охват</th><th>Показы</th></tr>
+      <tr><td>Средние Click Out (клиенты СРК)</td><td>0,64%</td><td>35,11 ₽</td><td>224,02 ₽</td><td>—</td><td>—</td></tr>
+      <tr><td>Путешествия (чемоданы, багаж)</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Ozon Travel + B2B</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Зимний спорт + Детские товары</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+    </table>
+    <div class="note"><b>Бенчмарки по выбранным сегментам собираются в рекламных кабинетах площадки</b> —
+    охват, показы, клики, CPM, CTR, CPC по каждому сегменту будут добавлены в финальную версию аудита.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">08</div>
+  <div class="kicker"><div class="bar"></div><span>Яндекс Urban Ads · Форматы</span></div>
+  <h2>Яндекс Urban Ads: форматы<br>и площадки показа</h2>
+  <div class="cards">
+    <div class="card"><div class="big">0,64%</div><h3>Видеобаннер</h3>
+      <p>ср. CPM 641 ₽ · ср. CPC 100 ₽. Главная страница Маркета, десктоп и мобайл.</p></div>
+    <div class="card"><div class="big">0,41%</div><h3>Баннер-растяжка</h3>
+      <p>ср. CPM 182 ₽ · ср. CPC 44 ₽. Все страницы Маркета, кроме корзины и оплаты.</p></div>
+    <div class="card"><div class="big">0,35%</div><h3>Горизонтальный баннер</h3>
+      <p>ср. CPM 342 ₽ · ср. CPC 98 ₽. Маркет, Go, Деливери, Еда, Лавка, Кинопоиск — главная, лента, карточка товара.</p></div>
+    <div class="card"><div class="big">0,33%</div><h3>Вертикальный баннер</h3>
+      <p>ср. CPM 96 ₽ · ср. CPC 29 ₽. Лента товаров на главной Маркета, карточка товара на десктопе.</p></div>
+  </div>
+  <div class="foot">До 94 млн аудитории в месяц по сервисам Яндекса: Маркет, Еда, Лавка, Go. 60% — доход средний и выше.
+  Оплата по CPM, минимальная ставка 50 ₽. Таргетинги: гео, интересы и покупки на Маркете, соцдем, доход,
+  подписка Плюс, CRM-ретаргетинг по вашей базе.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">09</div>
+  <div class="kicker"><div class="bar"></div><span>Яндекс Urban Ads · Сегменты</span></div>
+  <h2>Сегменты под Баггаж</h2>
+  <p class="sub">Сегменты «интересуются категорией» и «покупали в категории» по каталогу Яндекс Маркета
+  1-го и 2-го уровня плюс look-a-like и ретаргетинг:</p>
+  <div class="grid2">
+    <div><div class="colh">Основные сегменты</div><ul class="seg"><li>Интересуются категорией <b>«Аксессуары → Сумки, рюкзаки и чемоданы»</b></li><li>Интересуются категорией <b>«Спортивные товары → Товары для зимних видов спорта»</b></li><li>Интересуются категорией <b>«Детские товары → Прогулки и путешествия»</b></li><li>Тарифы такси <b>Комфорт+ / Ultima</b> — платящие за комфорт перемещения: ядро ценностного предложения</li><li>Поведение в Go: поездки в аэропорты и с вокзалов</li></ul></div>
+    <div><div class="colh">Дополнительные фильтры</div><ul class="seg"><li>Гео: Москва, СПб, Сочи (+ гео-полигоны аэропортов и вокзалов)</li><li>Возраст: 25–55</li><li>Доход: средний и выше</li><li>Показы: Go (видеобаннер в поездке — включая маршруты в аэропорт), Маркет, Лавка</li></ul></div>
+  </div>
+  <div class="note">Видеобаннер в Яндекс Go на маршруте в аэропорт — идеальный контекст: человек с чемоданом в такси видит сервис, который избавит его от чемодана в следующий раз. Это самый точный формат Urban Ads для вашей ниши.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">10</div>
+  <div class="kicker"><div class="bar"></div><span>Яндекс Urban Ads · Бенчмарки</span></div>
+  <h2>Бенчмарки для предварительного расчёта</h2>
+  
+    <table class="bench">
+      <tr><th>Сегмент / формат</th><th>CTR</th><th>CPC</th><th>CPM</th><th>Охват</th><th>Показы</th></tr>
+      <tr><td>Средние Click Out (клиенты СРК)</td><td>0,56%</td><td>26,45 ₽</td><td>149,31 ₽</td><td>—</td><td>—</td></tr>
+      <tr><td>Чемоданы + зимний спорт</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Комфорт+/Ultima, гео аэропорты</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Семьи (прогулки и путешествия)</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+    </table>
+    <div class="note"><b>Бенчмарки по выбранным сегментам собираются в рекламных кабинетах площадки</b> —
+    охват, показы, клики, CPM, CTR, CPC по каждому сегменту будут добавлены в финальную версию аудита.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">11</div>
+  <div class="kicker"><div class="bar"></div><span>WB Media · Сегменты</span></div>
+  <h2>Сегменты под Баггаж</h2>
+  <p class="sub">79 млн посетителей, из них 49 млн покупателей; 78% — женщины 25–44. Поведенческие
+  сегменты DMP на основе реальных покупок, по каталогу WB 1-го и 2-го уровня:</p>
+  <div class="grid2">
+    <div><div class="colh">Основные сегменты</div><ul class="seg"><li>Интересуются категорией <b>«Аксессуары → Чемоданы и защита багажа»</b></li><li>Интересуются категорией <b>«Спорт → Зимние виды спорта»</b></li><li>Интересуются категорией <b>«Детям → Прогулки и путешествия»</b></li><li>DMP: покупали чемоданы/дорожные сумки за последние 60 дней</li><li>Широкая аудитория 25–44 с гео Москва/СПб/Сочи</li></ul></div>
+    <div><div class="colh">Дополнительные фильтры</div><ul class="seg"><li>Гео: Москва, СПб, Сочи</li><li>Возраст: 25–44 (ядро WB) — молодые семьи, основной сценарий «отпуск с детьми»</li><li>Пол: женщины в приоритете (планируют семейные поездки)</li><li>Форматы: баннер на главной, видео 15 сек</li></ul></div>
+  </div>
+  <div class="note">78% аудитории WB — женщины 25–44: именно они чаще организуют семейный отпуск, где багажа больше всего. Креатив «летите налегке, чемоданы приедут сами» — под этот сценарий.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">12</div>
+  <div class="kicker"><div class="bar"></div><span>WB Media · Бенчмарки</span></div>
+  <h2>Бенчмарки для предварительного расчёта</h2>
+  
+    <table class="bench">
+      <tr><th>Сегмент / формат</th><th>CTR</th><th>CPC</th><th>CPM</th><th>Охват</th><th>Показы</th></tr>
+      <tr><td>Средние Click Out (клиенты СРК)</td><td>0,96%</td><td>20,93 ₽</td><td>200,11 ₽</td><td>—</td><td>—</td></tr>
+      <tr><td>Чемоданы и защита багажа</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Зимние виды спорта</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Семьи, гео 3 города</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+    </table>
+    <div class="note"><b>Бенчмарки по выбранным сегментам собираются в рекламных кабинетах площадки</b> —
+    охват, показы, клики, CPM, CTR, CPC по каждому сегменту будут добавлены в финальную версию аудита.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">13</div>
+  <div class="kicker"><div class="bar"></div><span>Сравнение источников</span></div>
+  <h2>Средние показатели клиентов СРК<br>в направлении Click Out</h2>
+  <div class="cards">
+    <div class="card"><div class="big">0,64%</div><h3>Ozon Performance</h3>
+      <p>CPC — 35,11 ₽ · CPM — 224,02 ₽</p></div>
+    <div class="card"><div class="big">0,56%</div><h3>Яндекс Urban Ads</h3>
+      <p>CPC — 26,45 ₽ · CPM — 149,31 ₽</p></div>
+    <div class="card"><div class="big">0,96%</div><h3>WB Media</h3>
+      <p>CPC — 20,93 ₽ · CPM — 200,11 ₽</p></div>
+  </div>
+  <div class="foot">Аудитории площадок не складываются: это три разные среды, и человек может быть сразу в нескольких.
+  Комплекс из трёх источников нужен не ради суммы охвата, а ради частоты касаний и разных сценариев показа.
+  Данные основаны на реальных кампаниях клиентов СРК; показатели по вашей нише будут уточнены после сбора бенчмарков по выбранным сегментам.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">14</div>
+  <div class="kicker"><div class="bar"></div><span>Чем отличаемся</span></div>
+  <h2>Мы доказываем, что спрос<br>создала реклама</h2>
+  <p class="sub">Обычный отчёт показывает показы, клики и заявки по последнему клику. Он не отвечает
+  на главный вопрос: <b>сколько обращений пришло бы и без рекламы.</b> Мы отвечаем — четырьмя замерами.</p>
+  <div class="rows">
+    <div class="row"><div class="l">Search lift</div><div class="r">Прирост поиска по вашему имени. Снимаем частотность в Вордстате до старта, во время рекламы и месяц после, отдельно ведём контрольный запрос категории — чтобы отделить ваш рост от роста рынка.</div></div>
+    <div class="row"><div class="l">Brand lift</div><div class="r">Прирост знания и намерения. Опрос двух групп до кампании и после: город с рекламой против сопоставимого города без неё. Упрощённая схема — от ~12 тыс ₽; Brand Lift площадки — от порога охвата. Часто это первая в жизни компании цифра узнаваемости.</div></div>
+    <div class="row"><div class="l">Sales lift</div><div class="r">Прирост в деньгах. Гео-эксперимент: районы или города с рекламой против сопоставимых без неё, по выгрузке из вашей CRM (нужна история по гео за 6–12 месяцев). Меряет не мнения, а кассу.</div></div>
+    <div class="row"><div class="l">Post-view</div><div class="r">Эффект показов без клика. Человек увидел баннер, не кликнул, а через две недели пришёл сам — в обычной аналитике это «прямой заход». Мы показываем этот слой отдельно: недельные ряды непереходного трафика на календаре флайта.</div></div>
+  </div>
+  <div class="foot">Часть замеров — наш собственный контур, доступен на любом бюджете. Исследования площадок
+  (Brand Lift Study, Sales Lift, post-view отчёт) подключаются от своих порогов и работают как подтверждение от третьей стороны.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">15</div>
+  <div class="kicker"><div class="bar"></div><span>Замеры · Что говорят данные</span></div>
+  <h2>Что показывают исследования<br>в вашей нише</h2>
+  <div class="rows"><div class="row"><div class="l">Search lift</div><div class="r">Исследование Easy Commerce (20 брендов, медийная реклама на Ozon, замер Вордстат + внутренний поиск): бюджет до 100 тыс ₽ — прирост брендовых запросов 5–12%; 100–300 тыс ₽ — 15–35%; от 300 тыс ₽ — 40–90%; от 500 тыс ₽ при широком охвате — 80–150%, эффект держится месяцы. Порог по показам: до 100 тыс показов эффекта нет, 1–3 млн — устойчивый рост (sostav.ru, 2026). Официальный Search Lift Яндекса: тест 90% / контроль 10%, кампания от 21 дня, охват от 1 млн (кейс Polaris: +14%). Для новой категории это главный замер: рост запросов «доставка багажа из аэропорта» и «баггаж» покажет, что реклама буквально создаёт рынок.</div></div><div class="row"><div class="l">Brand lift</div><div class="r">Brand Lift Яндекса — бесплатное исследование при бюджете от ~1 млн ₽ и охвате от 2 млн: метрики ad recall, знание бренда, намерение, Top of Mind. Кейсы РФ: «Кагоцел» — запоминаемость рекламы +21,6%; Ozon fresh (опрос OMI) — знание рекламы +8 п.п., знание бренда +3 п.п. При меньших бюджетах — упрощённая схема опросов от ~12 тыс ₽ (две волны, город с рекламой против контрольного). Стартуем с упрощённой схемы от ~12 тыс ₽ — при текущей базовой узнаваемости (<1 тыс. установок приложения) даже первая волна даст читаемый прирост.</div></div><div class="row"><div class="l">Sales lift</div><div class="r">Sales Lift Яндекса (охват от 2 млн, период 4–6 недель): кейс Polaris — видевшие медийную рекламу совершили 34% всех онлайн-покупок бренда, тогда как post-click атрибуция показывала менее 1%. Кейс «Кагоцел» — +29% продаж за период кампании. Брендформанс+перформанс на Ozon: заказы +52% в период кампании и остаточный эффект +21–30% в следующие два месяца (sostav.ru, 2026). Ваша география — готовый гео-эксперимент: флайт на Москву при контроле в СПб (или наоборот) по данным заказов сервиса.</div></div><div class="row"><div class="l">Post-view</div><div class="r">Ozon Performance: атрибуция заказов 30 дней после контакта с баннером, vCPM (показ засчитан при ≥50% баннера ≥2 сек). Яндекс: post-view окно до 90 дней через пиксель Метрики (настраивается 1–30 дней). Отложенные конверсии в медийных кампаниях зачастую составляют основную долю покупок: у Polaris post-click показывал <1% против реальных 34% вклада. Услугу заказывают в момент поездки, а не в момент показа — отложенный слой будет основным, окно до 90 дней обязательно.</div></div>
+  </div>
+  <div class="foot">Категория новая — открытых lift-кейсов по ней нет в природе. Ваши замеры станут первыми бенчмарками рынка доставки багажа в РФ; это же аргумент для PR.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">16</div>
+  <div class="kicker"><div class="bar"></div><span>Замеры · План для вас</span></div>
+  <h2>Какие замеры поставим<br>на вашем проекте</h2>
+  <div class="cards"><div class="card"><h3>Search lift · создание категории</h3><p>Вордстат до/во время/после: «баггаж», «доставка багажа из аэропорта», «доставка чемодана»; контроль — «доставка грузов». Замер «до» — бесплатно в аудите.</p></div><div class="card"><h3>Brand lift · упрощённый</h3><p>Две волны опроса (Москва с рекламой против СПб без) от ~12 тыс ₽: знание сервиса и категории.</p></div><div class="card"><h3>Sales lift · по заказам</h3><p>Гео-эксперимент на городах присутствия; заказы из вашей системы по неделям — минимальный контур, история с ноября 2025 уже есть.</p></div><div class="card"><h3>Post-view · 90 дней</h3><p>Пиксели на baggage.ru + отдельный срез заказов через стойки и приложение (промокод для офлайн-атрибуции).</p></div>
+  </div>
+  <div class="yline">Замер «до» снимаем в рамках бесплатного аудита — ещё до подписания договора</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">17</div>
+  <div class="kicker"><div class="bar"></div><span>Рессейлинг · Другие площадки</span></div>
+  <h2>Тринадцать рекламных кабинетов<br>в одном окне</h2>
+  <p class="sub">Через Церебро открываются кабинеты всех ключевых рекламных систем РФ — софт позволяет
+  создавать кабинеты, выдавать доступы и распределять деньги между ними в несколько кликов.</p>
+  <div class="yline" style="margin-top:26px;font-size:clamp(14px,1.35vw,19px);line-height:1.6">
+  VK Ads · VK AdBlogger · Telega.in · Яндекс Директ · Telegram Ads · Яндекс Бизнес · Авито Реклама ·
+  Яндекс ПромоСтраницы · SberAds · Bidfox · Hybrid · Яндекс Навигатор · Ozon Performance</div>
+  <div class="cards" style="margin-top:30px"><div class="card"><h3>Единое окно</h3><p>Софт, в котором кабинет создаётся, доступы выдаются, а деньги перекидываются между кабинетами в несколько кликов. Открытие бесплатное, комиссии за пополнение нет, сбора 3% нет.</p></div><div class="card"><h3>Документы без нервов</h3><p>Обмен через ЭДО, закрывающие документы в срок.</p></div><div class="card"><h3>Живая поддержка</h3><p>Отвечаем на вопросы о рекламе, помогаем пройти модерацию, решаем проблемы с документами и багами. При откруте от 1,5 млн ₽ — чат с персональным менеджером.</p></div><div class="card"><h3>Аудит и обучение</h3><p>Аудит рекламных кампаний от практикующих специалистов: точки роста, ошибки, стратегии повышения эффективности. Плюс обучающие курсы. Для специалистов и агентств — возврат до 18% от открученного рекламного бюджета.</p></div>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">18</div>
+  <div class="kicker"><div class="bar"></div><span>Рессейлинг · Каналы под вашу нишу</span></div>
+  <h2>Ваш список каналов —<br>целиком в одном окне</h2>
+  <div class="rows"><div class="row"><div class="l">Яндекс Директ</div><div class="r">Действующий канал: через кабинет Церебро — аудит кампаний, поддержка и возврат до 18% от откруток. Категорийных запросов пока мало — Директ держим на бренд + гео «доставка багажа».</div></div><div class="row"><div class="l">VK Ads</div><div class="r">Названный вами канал: таргет по интересам «путешествия», гео-сегменты аэропортов, видеоформаты для объяснения новой услуги.</div></div><div class="row"><div class="l">Telega.in + Telegram Ads</div><div class="r">Названный вами канал: посевы в каналах Москвы/СПб/Сочи, тревел-каналах и каналах «переезд/зимовка» — где живут сценарии использования.</div></div><div class="row"><div class="l">Ozon Performance</div><div class="r">Названный вами канал — это и есть Click Out из этого аудита, кабинет открывается в том же окне.</div></div><div class="row"><div class="l">Авито Реклама</div><div class="r">Сценарии переезда и продажи крупногабарита — аудитория, которой нужно что-то перевезти.</div></div><div class="row"><div class="l">Яндекс Навигатор</div><div class="r">Геомедийные пины по маршрутам в аэропорты и вокзалы — точный контекст «еду с багажом».</div></div>
+  </div>
+  <div class="foot">Сезонность производна от авиапотока: июль–август, майские и новогодние пики. Ближайшее большое окно — новогодние перелёты и горнолыжный сезон (доставка лыж и сноубордов).</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">19</div>
+  <div class="kicker"><div class="bar"></div><span>Готовность к приёму трафика</span></div>
+  <h2>Сайт и аналитика:<br>что проверить до старта</h2>
+  <div class="rows"><div class="row"><div class="l">Критично: сайт</div><div class="r">При проверке 02.09.2026 baggage.ru дважды отдавал ошибку 500. До запуска любого трафика — стабилизировать посадочную; это стоп-фактор №1.</div></div><div class="row"><div class="l">Посадочные</div><div class="r">В сертификате домена видны poslepoleta.ru, netchemodanu.ru, tutu.baggage.ru — если готовятся брендовые посадочные и интеграция с Туту, учтём их в разметке кампаний.</div></div><div class="row"><div class="l">Аналитика</div><div class="r">Цели Метрики на заказ, звонок, установку приложения; сквозная связка веб-заказов и заказов со стоек (промокоды) для счёта «до выручки».</div></div><div class="row"><div class="l">Приложение</div><div class="r">RuStore <1 тыс. установок — в креативах тестируем сценарий установки против веб-заказа.</div></div>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">20</div>
+  <div class="kicker"><div class="bar"></div><span>Условия работы</span></div>
+  <h2>Сопровождение: чем больше<br>источников, тем ниже цена</h2>
+  <div class="price">
+    <div class="p">
+      <h3>Один источник</h3>
+      <div class="now">50 000 ₽</div>
+      <div class="per">в месяц за сопровождение</div>
+      <ul><li>Ozon, Urban Ads или WB на выбор</li><li>Полный аналитический контур</li><li>Недельная и месячная отчётность</li></ul>
+    </div>
+    <div class="p">
+      <h3>Два источника</h3>
+      <div class="was">100 000 ₽</div>
+      <div class="now">80 000 ₽</div>
+      <div class="per">в месяц · скидка 20% на тестовый период</div>
+      <ul><li>Любые два из трёх</li><li>Сравнение источников на ваших данных</li><li>Перераспределение бюджета между ними</li></ul>
+    </div>
+    <div class="p best">
+      <div class="tag">Максимум охвата</div>
+      <h3>Три источника</h3>
+      <div class="was">150 000 ₽</div>
+      <div class="now">90 000 ₽</div>
+      <div class="per">в месяц · скидка 40% на тестовый период</div>
+      <ul><li>Ozon + Urban Ads + WB</li><li>Разные среды и сценарии показа</li><li>Частота касаний, которую не даёт один канал</li></ul>
+    </div>
+  </div>
+  <div class="rows" style="margin-top:26px">
+    <div class="row"><div class="l">Рекламный бюджет</div><div class="r">От 120 000 ₽ в месяц на каждый источник — порог, ниже которого площадка не набирает объём для выводов. Минимальный бюджет на тест источника — 50 000 ₽.</div></div>
+    <div class="row"><div class="l">Срок контракта</div><div class="r">От шести месяцев. Медийный эффект читается на горизонте 6–8 недель, решения по бюджету принимаются по кварталу.</div></div>
+    <div class="row"><div class="l">Что входит</div><div class="r">Ведение кампаний, креативы, аналитический контур, замеры, отчётность и документ-решение в конце цикла.</div></div>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">21</div>
+  <div class="kicker"><div class="bar"></div><span>Рекомендации и выводы</span></div>
+  <h2>Рекомендации по запуску</h2>
+  <ul class="seg"><li>Сначала — стабилизация baggage.ru (ошибка 500), затем трафик: без работающей посадочной тест не даст выводов</li><li>Стартовая пара: <b>Яндекс Urban Ads (видеобаннер в Go, гео аэропортов) + Ozon Performance (чемоданы и тревел)</b> — самые контекстные среды для новой категории</li><li>Бюджет от 120 000 ₽/мес на источник; гео-фокус Москва даст плотность показов на ограниченном бюджете</li><li>Search lift обязателен с первого дня — для новой категории рост запросов и есть главный KPI создания спроса</li><li>Параллельно открываем кабинеты из вашего списка (VK, Telega.in, Директ) в одном окне с возвратом до 18%</li></ul>
+  <div class="foot">Все данные основаны на реальных бенчмарках Ozon Performance, Urban Ads и WB Media.
+  Показатели по вашей нише будут уточнены после сбора бенчмарков по выбранным сегментам.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">22</div>
+  <div class="kicker"><div class="bar"></div><span>Следующий шаг</span></div>
+  <h1>Созвон с Алёной — по цифрам аудита</h1>
+  <p class="sub">Показываем размеры аудиторий по сегментам, бенчмарки и экономику теста; отдельно — план стабилизации посадочной до старта трафика. Контакт: Виноградова Алёна Геннадьевна, SMM/маркетолог · +7 915 961-61-02.</p>
+  <div class="yline">Церебро Таргет · направление Click Out<br>clickout.cerebrotarget.ru</div>
+  <div class="mark">Ц</div>
+</section>
+</body>
+</html>
