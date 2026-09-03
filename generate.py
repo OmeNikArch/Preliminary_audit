@@ -108,12 +108,12 @@ def load_benchmarks():
         for row in csv.DictReader(f, delimiter=";"):
             key = (row["client_key"].strip(), row["source"].strip(), row["segment"].strip())
             data[key] = {m: (row.get(m) or "").strip() for m in
-                         ("охват", "показы", "клики", "cpm", "ctr", "cpc")}
+                         ("показы", "уникальные пользователи", "клики", "cpm", "ctr", "cpc")}
     return data
 
 
 BENCHMARKS = load_benchmarks()
-_METRIC_ORDER = ("охват", "показы", "клики", "cpm", "ctr", "cpc")
+_METRIC_ORDER = ("показы", "уникальные пользователи", "клики", "cpm", "ctr", "cpc")
 
 
 def bench_table(client_key, source_key, niche_rows):
@@ -140,10 +140,10 @@ def bench_table(client_key, source_key, niche_rows):
             "<b>Часть бенчмарков уже снята из кабинетов площадки</b> — оставшиеся ячейки будут "
             "добавлены в финальную версию аудита." if filled_any else
             "<b>Бенчмарки по выбранным сегментам собираются в рекламных кабинетах площадки</b> — "
-            "охват, показы, клики, CPM, CTR, CPC по каждому сегменту будут добавлены в финальную версию аудита.")
+            "показы, уникальные пользователи, клики, CPM, CTR, CPC по каждому сегменту будут добавлены в финальную версию аудита.")
     return f"""
     <table class="bench">
-      <tr><th>Сегмент / формат</th><th>Охват</th><th>Показы</th><th>Клики</th><th>CPM</th><th>CTR</th><th>CPC</th></tr>{rows}
+      <tr><th>Сегмент / формат</th><th>Показы</th><th>Уникальные пользователи</th><th>Клики</th><th>CPM</th><th>CTR</th><th>CPC</th></tr>{rows}
     </table>
     <div class="note">{note}</div>"""
 
