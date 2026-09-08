@@ -42,6 +42,16 @@ python3 generate.py
 
 — цифры подставятся в таблицы бенчмарков всех презентаций. Или просто закоммить CSV — перегенерирую.
 
+## Публикация
+
+GitHub Pages собирается из ветки `gh-pages`, а не из `main`. После коммита в `main`:
+
+```bash
+git push origin main && git push origin main:gh-pages
+```
+
+Без второй команды сайт omenikarch.github.io/Preliminary_audit остаётся на старой версии.
+
 ## Как обновлять контент
 
 Контент клиентов — в `clients_data.py` (сегменты, цифры ниш, lift-данные, рессейлинг).
