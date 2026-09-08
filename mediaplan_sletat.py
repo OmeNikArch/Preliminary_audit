@@ -181,8 +181,8 @@ def build_html():
   <div class="kicker"><div class="bar"></div><span>Три сценария · в месяц · Ozon Performance</span></div>
   <h2>Сколько вкладываем —<br>сколько получаем</h2>
   <div style="overflow-x:auto">
-  <table class="bench">
-    <tr><th>Сценарий</th><th>Медиабюджет / мес</th><th>Сопровождение 1-й мес / со 2-го</th><th>Итого / мес со 2-го</th><th>Итого за тест ({MONTHS} мес)</th><th>Показы / мес</th><th>Клики / мес</th><th>CPC медиа</th><th>CPC с сопровождением</th></tr>{trs}
+  <table class="bench compact">
+    <tr><th>Сценарий</th><th>Медиа / мес</th><th>СРК 1-й / со 2-го</th><th>Итого / мес</th><th>За тест</th><th>Показы</th><th>Клики</th><th>CPC</th><th>CPC с СРК</th></tr>{trs}
   </table>
   </div>
   <div class="note"><b>Сопровождение — по шкале премирования Церебро</b> (экран «Ozon Performance · Условия» в аудите): при расходе
@@ -281,6 +281,8 @@ def build_html():
 <style>{CSS}
   table.bench td, table.bench th{{white-space:nowrap}}
   table.bench td:first-child{{white-space:normal;min-width:200px}}
+  table.compact th, table.compact td{{padding:10px 10px;font-size:clamp(12px,1vw,15px)}}
+  table.compact td:first-child{{min-width:150px}}
 </style>
 </head>
 <body>

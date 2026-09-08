@@ -88,6 +88,8 @@
 
   table.bench td, table.bench th{white-space:nowrap}
   table.bench td:first-child{white-space:normal;min-width:200px}
+  table.compact th, table.compact td{padding:10px 10px;font-size:clamp(12px,1vw,15px)}
+  table.compact td:first-child{min-width:150px}
 </style>
 </head>
 <body>
@@ -142,8 +144,8 @@
   <div class="kicker"><div class="bar"></div><span>Три сценария · в месяц · Ozon Performance</span></div>
   <h2>Сколько вкладываем —<br>сколько получаем</h2>
   <div style="overflow-x:auto">
-  <table class="bench">
-    <tr><th>Сценарий</th><th>Медиабюджет / мес</th><th>Сопровождение 1-й мес / со 2-го</th><th>Итого / мес со 2-го</th><th>Итого за тест (2 мес)</th><th>Показы / мес</th><th>Клики / мес</th><th>CPC медиа</th><th>CPC с сопровождением</th></tr>
+  <table class="bench compact">
+    <tr><th>Сценарий</th><th>Медиа / мес</th><th>СРК 1-й / со 2-го</th><th>Итого / мес</th><th>За тест</th><th>Показы</th><th>Клики</th><th>CPC</th><th>CPC с СРК</th></tr>
       <tr><td>Если меньше</td><td>350 000 ₽</td><td>70 000 ₽ / 70 000 ₽</td><td><b style="color:var(--yellow)">420 000 ₽</b></td><td>840 000 ₽</td><td>2 312 311</td><td>3 693</td><td>95 ₽</td><td>114 ₽</td></tr>
       <tr><td style="color:var(--yellow)">Оговорённый тест</td><td>500 000 ₽</td><td>100 000 ₽ / 50 000 ₽</td><td><b style="color:var(--yellow)">550 000 ₽</b></td><td>1 150 000 ₽</td><td>3 303 301</td><td>5 276</td><td>95 ₽</td><td>104 ₽</td></tr>
       <tr><td>Расширение</td><td>750 000 ₽</td><td>150 000 ₽ / 75 000 ₽</td><td><b style="color:var(--yellow)">825 000 ₽</b></td><td>1 725 000 ₽</td><td>4 954 951</td><td>7 914</td><td>95 ₽</td><td>104 ₽</td></tr>
