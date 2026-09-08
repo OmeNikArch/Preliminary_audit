@@ -206,7 +206,8 @@ def build_html():
     # 05 Мотивация: скидка на сопровождение от оборота
     trs = ""
     for spend, label in TIERS:
-        s1, s2 = srk(spend)
+        s1 = max(spend * 0.10, 50_000)   # базовая ставка 10%, не менее 50 000 ₽
+        s2 = srk(spend)[1]              # ставка ступени по обороту
         best = ' style="color:var(--yellow)"' if spend == MAIN else ""
         trs += f"""
       <tr><td{best}>{money(spend)}<br><span style="color:var(--mute);font-family:var(--body);font-weight:400;font-size:12px">{label}</span></td><td>{s1/spend*100:.0f}%</td><td>{s2/spend*100:.0f}%</td><td>{money(s1)}</td><td><b style="color:var(--yellow)">{money(s2)}</b></td><td>{money(s1 - s2)}</td><td>{money((s1 - s2) * 12)}</td></tr>"""
