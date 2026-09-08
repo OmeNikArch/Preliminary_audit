@@ -29,6 +29,15 @@ SCENARIOS = [
     ("Расширение", 750_000, "После теста: масштабирование лучших связок и кастомного сегмента путешественников"),
 ]
 MONTHS = 2              # тестовый период
+# Доли бюджета по сегментам: клиент хочет крутить в основном на Ozon Travel (08.09.2026)
+WEIGHTS = {"Ozon Travel": 0.60, "Пляжная": 0.20, "Широкая": 0.20}
+
+
+def weight(seg):
+    for key, w in WEIGHTS.items():
+        if seg.startswith(key):
+            return w
+    raise KeyError(seg)
 # Ступени оборота для экрана мотивации: (расход в месяц, подпись)
 TIERS = [
     (350_000, "Сокращённый тест"),
@@ -68,11 +77,12 @@ def num(s):
 
 
 def segments():
-    """[(segment, cpm, ctr, unique_users)]"""
+    """[(segment, cpm, ctr, unique_users, weight)]"""
     out = []
     for seg in CLIENTS[CLIENT][SEG_FIELD]:
         b = BENCHMARKS[(CLIENT, SOURCE_KEY, seg)]
-        out.append((seg, num(b["cpm"]), num(b["ctr"]), int(num(b["уникальные пользователи"]))))
+        out.append((seg, num(b["cpm"]), num(b["ctr"]), int(num(b["уникальные пользователи"])), weight(seg)))
+    assert abs(sum(x[4] for x in out) - 1) < 1e-9, "доли бюджета должны давать 100%"
     return out
 
 
@@ -88,13 +98,13 @@ def money(n):
 
 
 def calc(budget):
-    """Бюджет делится поровну между сегментами."""
+    """Бюджет делится по долям WEIGHTS: основной сегмент — Ozon Travel."""
     rows = []
-    for seg, cpm, ctr, uu in SEGS:
-        b = budget / len(SEGS)
+    for seg, cpm, ctr, uu, w in SEGS:
+        b = budget * w
         imps = b / cpm * 1000
         clicks = imps * ctr
-        rows.append({"seg": seg, "budget": b, "cpm": cpm, "imps": imps, "ctr": ctr, "clicks": clicks,
+        rows.append({"seg": seg, "budget": b, "w": w, "cpm": cpm, "imps": imps, "ctr": ctr, "clicks": clicks,
                      "cpc": b / clicks, "reach": imps / FREQ, "uu": uu})
     return rows
 
@@ -121,7 +131,7 @@ def build_html():
 
     main_rows = calc(MAIN)
     t = totals(main_rows)
-    cap = sum(uu for _, _, _, uu in SEGS)
+    cap = sum(uu for _, _, _, uu, _ in SEGS)
 
     # 01 Титул
     nxt()
@@ -165,15 +175,16 @@ def build_html():
   <div class="kicker"><div class="bar"></div><span>Потенциал бюджета · {money(MAIN)} в месяц</span></div>
   <h2>Что даёт тестовый бюджет<br>{money(MAIN)} на Ozon Performance</h2>
   <div class="stats">
-    <div class="stat"><div class="n">{fmt(t['imps'] / 1e6 * 10) / 10 if False else f"{t['imps']/1e6:.1f}".replace('.', ',')} млн</div><div class="t">показов в месяц по трём сегментам аудита; за тест — {f"{t['imps']*MONTHS/1e6:.1f}".replace('.', ',')} млн</div></div>
+    <div class="stat"><div class="n">{f"{t['imps']/1e6:.1f}".replace('.', ',')} млн</div><div class="t">показов в месяц; 60% бюджета — на Ozon Travel и покупателей товаров в дорогу; за тест — {f"{t['imps']*MONTHS/1e6:.1f}".replace('.', ',')} млн</div></div>
     <div class="stat"><div class="n">~{fmt(t['reach'] / 1000)} тыс.</div><div class="t">человек охвата в месяц при частоте {FREQ} — около {t['reach']/cap*100:.0f}% суммарной ёмкости выбранных сегментов ({fmt(cap/1e6*10)/10 if False else f"{cap/1e6:.1f}".replace('.', ',')} млн)</div></div>
     <div class="stat"><div class="n">{fmt(t['clicks'])}</div><div class="t">переходов на sletat.ru в месяц, CPC {t['cpc_media']:.0f} ₽ по медиа</div></div>
     <div class="stat"><div class="n">10%</div><div class="t">ставка сопровождения на тесте, но не меньше 50 000 ₽ в месяц; с ростом оборота снижается до 2%</div></div>
   </div>
   <p class="sub" style="margin-top:34px">Бюджет от 500 000 ₽ — верхняя ступень бенчмарка по приросту брендовых запросов из аудита: при широком охвате
   исследование Easy Commerce даёт +80–150% брендового поиска с эффектом на месяцы (до 100 000 ₽ — только +5–12%). На этом бюджете
-  к трём сегментам аудита добавляем сегмент с высокой активностью от площадки и кастомный сегмент путешественников — пять связок
-  вместо трёх, каждая со своей статистикой за 8 недель.</p>
+  основной упор — на Ozon Travel, как вы и хотели: 60% бюджета идёт на пользователей Ozon Travel и покупателей товаров в дорогу,
+  по 20% — на пляжный сезонный сегмент и широкую аудиторию городов вылета. К ним площадка добавит сегмент с высокой активностью
+  и кастомный сегмент путешественников.</p>
   <div class="foot">Бюджет может быть меньше: сценарий «Если меньше» на следующем экране. Сопровождение при любом бюджете — не меньше 50 000 ₽ в месяц.</div>
   <div class="mark">Ц</div>
 </section>""")
@@ -198,7 +209,7 @@ def build_html():
   <div class="note"><b>Сопровождение — 10% от расхода, но не меньше 50 000 ₽ в месяц.</b> С ростом оборота ставка снижается:
   от 1,1 млн ₽ — 8%, от 2 млн ₽ — 6%, от 7 млн ₽ — 4%, от 10 млн ₽ — 2% (следующий экран).
   В сопровождение входят ведение кампаний, креативы, аналитический контур, замеры, недельная и месячная отчётность.
-  Показы и клики — по CPM и CTR ваших сегментов из кабинета Ozon при равном делении бюджета между тремя сегментами.</div>
+  Показы и клики — по CPM и CTR ваших сегментов из кабинета Ozon; 60% бюджета — Ozon Travel, по 20% — два других сегмента.</div>
   <div class="foot">{"<br>".join(f"<b>{tl}</b> — {nt}." for tl, _, nt in SCENARIOS)}<br>Как ставка сопровождения снижается с ростом оборота — на следующем экране. Оценка охвата — на экранах 03 и 06 (частота {FREQ}); точный охват отдаёт прогнозатор кабинета перед стартом.</div>
   <div class="mark">Ц</div>
 </section>""")
@@ -236,22 +247,22 @@ def build_html():
 
     # 05 Разбивка по сегментам — оговорённый тест
     trs = "".join(f"""
-      <tr><td>{r['seg']}</td><td>{money(r['budget'])}</td><td>{r['cpm']:.2f} ₽</td><td>{fmt(r['imps'])}</td><td>{r['ctr']*100:.2f}%</td><td>{fmt(r['clicks'])}</td><td>{r['cpc']:.2f} ₽</td><td>{fmt(r['uu'])}</td></tr>""" for r in main_rows)
+      <tr><td>{r['seg']}</td><td>{r['w']*100:.0f}%</td><td>{money(r['budget'])}</td><td>{r['cpm']:.2f} ₽</td><td>{fmt(r['imps'])}</td><td>{r['ctr']*100:.2f}%</td><td>{fmt(r['clicks'])}</td><td>{r['cpc']:.2f} ₽</td><td>{fmt(r['uu'])}</td></tr>""" for r in main_rows)
     trs += f"""
-      <tr><td>Итого Ozon Performance</td><td>{money(t['media'])}</td><td>{t['cpm']:.2f} ₽</td><td>{fmt(t['imps'])}</td><td>{t['ctr']*100:.2f}%</td><td>{fmt(t['clicks'])}</td><td>{t['cpc_media']:.2f} ₽</td><td></td></tr>"""
+      <tr><td>Итого Ozon Performance</td><td>100%</td><td>{money(t['media'])}</td><td>{t['cpm']:.2f} ₽</td><td>{fmt(t['imps'])}</td><td>{t['ctr']*100:.2f}%</td><td>{fmt(t['clicks'])}</td><td>{t['cpc_media']:.2f} ₽</td><td></td></tr>"""
     s.append(f"""
 <section>
   <div class="num">{nxt()}</div>
   <div class="kicker"><div class="bar"></div><span>Разбивка по сегментам · оговорённый тест · {money(MAIN)} в месяц</span></div>
-  <h2>Что даёт каждый сегмент<br>за месяц</h2>
+  <h2>Ozon Travel — основной сегмент:<br>что даёт каждый за месяц</h2>
   <div style="overflow-x:auto">
   <table class="bench">
-    <tr><th>Сегмент</th><th>Бюджет</th><th>CPM</th><th>Показы</th><th>CTR</th><th>Клики</th><th>CPC</th><th>Ёмкость: уникальных пользователей / мес</th></tr>{trs}
+    <tr><th>Сегмент</th><th>Доля</th><th>Бюджет</th><th>CPM</th><th>Показы</th><th>CTR</th><th>Клики</th><th>CPC</th><th>Ёмкость: уникальных / мес</th></tr>{trs}
   </table>
   </div>
   <div class="foot">Ёмкость — размер сегмента в кабинете Ozon; даже {money(MAIN)} выкупают доли процента показов сегмента, есть куда масштабироваться.
-  Четвёртый и пятый сегменты — аудитория с высокой пользовательской активностью и кастомный сегмент путешественников от площадки —
-  получают бюджет из перераспределения после первых двух недель; их бенчмарки появятся после открытия кабинета.</div>
+  Ozon Travel — самый точный сегмент: пользователи, которые уже покупают билеты и отели на площадке, у него лучший CTR и самый дешёвый переход.
+  Сегмент с высокой активностью и кастомный сегмент путешественников от площадки получают бюджет из перераспределения после первых двух недель.</div>
   <div class="mark">Ц</div>
 </section>""")
 
@@ -284,7 +295,7 @@ def build_html():
   <h2>Восемь недель<br>с октября</h2>
   <div class="rows">
     <div class="row"><div class="l">До старта · 1–2 недели</div><div class="r">Кабинет Ozon открывается за 3–5 рабочих дней (площадка одобрила), запуск кампании — от 7 дней. Посадочные под сегменты («туры к морю», «семейные туры»), пиксели площадки и UTM, замер «до» по Вордстату — бесплатно, до договора.</div></div>
-    <div class="row"><div class="l">Недели 1–2 · тест</div><div class="r">Три сегмента из аудита плюс сегмент с высокой пользовательской активностью от площадки; первые бенчмарки CPM/CTR/CPC по факту, а не по прогнозу.</div></div>
+    <div class="row"><div class="l">Недели 1–2 · тест</div><div class="r">Основной флайт — Ozon Travel и покупатели товаров в дорогу (60% бюджета), рядом — пляжный сегмент и широкая аудитория городов вылета, плюс сегмент с высокой активностью от площадки; первые бенчмарки CPM/CTR/CPC по факту.</div></div>
     <div class="row"><div class="l">Недели 3–6 · связка</div><div class="r">Отключаем слабые сегменты, перераспределяем бюджет по стоимости клика и заявки; под бюджет согласовываем с Ozon кастомный сегмент путешественников; креативы под лучшие связки.</div></div>
     <div class="row"><div class="l">Недели 7–8 · масштабирование</div><div class="r">Наращиваем лучшие связки; документ-решение по итогам теста: что продолжаем, что останавливаем — по вашим критериям. Тогда же — решение по Urban Ads как второму источнику.</div></div>
     <div class="row"><div class="l">Замеры</div><div class="r">Search lift по Вордстату («слетать ру», «слетать туры» против контрольного «горящие туры») и post-view отчёт Ozon (заказы и заявки после показов, окно до 30 дней) — с первого дня. На бюджете {money(MAIN)} прирост брендового поиска — главный измеримый результат теста.</div></div>
@@ -364,16 +375,17 @@ def build_xlsx(path):
     srk1 = ('=IF($B$5<=1099999,MAX($B$5*0.1,50000),IF($B$5<=1999999,$B$5*0.08,'
             'IF($B$5<=6999999,$B$5*0.06,IF($B$5<=9999999,$B$5*0.04,$B$5*0.02))))')
     srk2 = srk1
-    hdr = ["Сегмент", "Бюджет, ₽", "CPM, ₽", "CTR", "Показы", "Охват (оценка)", "Клики", "CPC, ₽", "Заявки", "CPL медиа, ₽", "Ёмкость: уникальных / мес"]
+    hdr = ["Сегмент", "Бюджет, ₽", "CPM, ₽", "CTR", "Показы", "Охват (оценка)", "Клики", "CPC, ₽", "Заявки", "CPL медиа, ₽", "Ёмкость: уникальных / мес", "Доля бюджета"]
     r0 = 15
-    ws.cell(row=r0 - 1, column=1, value="Расчёт по сегментам (бюджет делится поровну между сегментами)").font = bold
+    ws.cell(row=r0 - 1, column=1, value="Расчёт по сегментам (доли бюджета — жёлтая колонка L; основной сегмент — Ozon Travel)").font = bold
     for j, h in enumerate(hdr, start=1):
         ws.cell(row=r0, column=j, value=h).font = bold
     r = r0 + 1
     first = r
-    for seg, cpm, ctr, uu in SEGS:
+    for seg, cpm, ctr, uu, w in SEGS:
         ws.cell(row=r, column=1, value=seg)
-        ws.cell(row=r, column=2, value=f"=$B$5/{len(SEGS)}")
+        c = ws.cell(row=r, column=12, value=w); c.fill = yellow; c.number_format = "0%"
+        ws.cell(row=r, column=2, value=f"=$B$5*L{r}")
         c = ws.cell(row=r, column=3, value=cpm); c.fill = yellow
         c = ws.cell(row=r, column=4, value=ctr); c.fill = yellow; c.number_format = "0.00%"
         ws.cell(row=r, column=5, value=f"=B{r}/C{r}*1000")
@@ -413,7 +425,7 @@ def build_xlsx(path):
             if c.column in (2, 3, 5, 6, 7, 8, 9, 10, 11) and c.number_format == "General":
                 c.number_format = "#,##0"
     ws.column_dimensions["A"].width = 46
-    for col in range(2, 12):
+    for col in range(2, 13):
         ws.column_dimensions[get_column_letter(col)].width = 16
     ws.column_dimensions["F"].width = 26
     ws["A" + str(tr + len(lines) + 2)] = ("Условия: контракт от 6 мес, тестовый период 8 недель. Оговорённый тестовый бюджет — 500 000 ₽/мес, может быть меньше "
