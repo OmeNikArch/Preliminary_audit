@@ -174,7 +174,7 @@ def build_html():
         tt = totals(calc(per))
         best = ' style="color:var(--yellow)"' if per == MAIN else ""
         trs += f"""
-      <tr><td{best}>{title}</td><td>{money(tt['media'])}</td><td>{money(tt['srk1'])} / {money(tt['srk2'])}</td><td><b style="color:var(--yellow)">{money(tt['total2'])}</b></td><td>{money(tt['test_total'])}</td><td>{fmt(tt['imps'])}</td><td>{fmt(tt['reach'])}</td><td>{fmt(tt['clicks'])}</td><td>{money(tt['cpc_media'])}</td><td>{money(tt['cpc_full'])}</td></tr>"""
+      <tr><td{best}>{title}</td><td>{money(tt['media'])}</td><td>{money(tt['srk1'])} / {money(tt['srk2'])}</td><td><b style="color:var(--yellow)">{money(tt['total2'])}</b></td><td>{money(tt['test_total'])}</td><td>{fmt(tt['imps'])}</td><td>{fmt(tt['clicks'])}</td><td>{money(tt['cpc_media'])}</td><td>{money(tt['cpc_full'])}</td></tr>"""
     s.append(f"""
 <section>
   <div class="num">{nxt()}</div>
@@ -182,15 +182,14 @@ def build_html():
   <h2>Сколько вкладываем —<br>сколько получаем</h2>
   <div style="overflow-x:auto">
   <table class="bench">
-    <tr><th>Сценарий</th><th>Медиабюджет / мес</th><th>Сопровождение 1-й мес / со 2-го</th><th>Итого / мес со 2-го</th><th>Итого за тест ({MONTHS} мес)</th><th>Показы / мес</th><th>Охват*</th><th>Клики / мес</th><th>CPC медиа</th><th>CPC с сопровождением</th></tr>{trs}
+    <tr><th>Сценарий</th><th>Медиабюджет / мес</th><th>Сопровождение 1-й мес / со 2-го</th><th>Итого / мес со 2-го</th><th>Итого за тест ({MONTHS} мес)</th><th>Показы / мес</th><th>Клики / мес</th><th>CPC медиа</th><th>CPC с сопровождением</th></tr>{trs}
   </table>
   </div>
   <div class="note"><b>Сопровождение — по шкале премирования Церебро</b> (экран «Ozon Performance · Условия» в аудите): при расходе
   200 001–360 000 ₽ — 20%; 360 001–1 099 999 ₽ — 20% в первый месяц и 10% со скидкой со второго при сохранении расхода.
   В сопровождение входят ведение кампаний, креативы, аналитический контур, замеры, недельная и месячная отчётность.
   Показы и клики — по CPM и CTR ваших сегментов из кабинета Ozon при равном делении бюджета между тремя сегментами.</div>
-  <div class="foot">* Охват — оценка при средней частоте {FREQ} показа на человека; точный охват отдаёт прогнозатор кабинета перед стартом.<br>
-  {"<br>".join(f"<b>{tl}</b> — {nt}." for tl, _, nt in SCENARIOS)}</div>
+  <div class="foot">{"<br>".join(f"<b>{tl}</b> — {nt}." for tl, _, nt in SCENARIOS)}<br>Оценка охвата по сценариям — на экранах 03 и 05 (частота {FREQ}); точный охват отдаёт прогнозатор кабинета перед стартом.</div>
   <div class="mark">Ц</div>
 </section>""")
 
