@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Предварительный аудит · ИРИС-М · Cerebro Click Out</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --card:#272727; --card2:#111;
+    --txt:#E7E6E6; --mute:#A5A5A5; --yellow:#FDD101; --white:#fff;
+    --head:'Unbounded', Arial, sans-serif; --body:Arial, Helvetica, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--body)}
+  section{min-height:100vh;padding:6vh 7vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-bottom:1px solid #1a1a1a}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .kicker .bar{width:44px;height:8px;background:var(--yellow)}
+  .kicker span{font-family:var(--head);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--yellow);text-transform:uppercase}
+  .num{position:absolute;top:5vh;right:7vw;color:var(--mute);font-size:14px}
+  h1{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(28px,4.6vw,58px);line-height:1.1;margin-bottom:24px}
+  h2{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(23px,3.2vw,42px);line-height:1.14;margin-bottom:26px}
+  .sub{font-size:clamp(16px,1.6vw,22px);line-height:1.45;max-width:70ch}
+  .sub b{color:var(--white)}
+  .yline{color:var(--yellow);font-family:var(--head);font-weight:700;font-size:clamp(16px,1.7vw,24px);margin-top:32px;line-height:1.3}
+  .logo{display:flex;align-items:center;gap:16px;margin-bottom:44px}
+  .logo .sign{width:56px;height:56px;background:var(--white);border:7px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:26px}
+  .logo .nm{font-family:var(--head);font-weight:700;color:var(--white);font-size:18px;line-height:1.25}
+  .mark{position:absolute;bottom:5vh;right:7vw;width:38px;height:38px;background:var(--white);border:5px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:17px;opacity:.9}
+  .cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:10px}
+  .card{background:var(--card);border-radius:18px;padding:26px 28px}
+  .card h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:12px}
+  .card p{font-size:clamp(13px,1.15vw,17px);line-height:1.5;color:var(--txt)}
+  .card .big{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(26px,3.2vw,44px);line-height:1;margin-bottom:10px}
+  .card .cap{color:var(--mute);font-size:13px;margin-top:12px;line-height:1.4}
+  .stats{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:14px}
+  .stat .n{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(30px,4vw,56px);line-height:1}
+  .stat .t{color:var(--txt);font-size:clamp(13px,1.15vw,17px);margin-top:10px;line-height:1.4}
+  .rows{margin-top:12px;max-width:1150px}
+  .row{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:26px;padding:20px 0;border-top:1px solid #232323;align-items:start}
+  .row .l{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(14px,1.3vw,19px)}
+  .row .r{font-size:clamp(14px,1.2vw,18px);line-height:1.5}
+  .foot{margin-top:34px;color:var(--mute);font-size:clamp(12px,1vw,15px);line-height:1.5;max-width:80ch}
+  .price{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:10px}
+  .p{background:var(--card2);border:1px solid #262626;border-radius:18px;padding:26px 28px;position:relative}
+  .p.best{border-color:var(--yellow)}
+  .p .tag{position:absolute;top:-13px;left:26px;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px}
+  .p h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:16px}
+  .p .was{color:var(--mute);text-decoration:line-through;font-size:15px}
+  .p .now{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(24px,2.8vw,38px);line-height:1.1;margin:6px 0 4px}
+  .p .per{color:var(--mute);font-size:13px}
+  .p ul{list-style:none;margin-top:16px}
+  .p li{font-size:clamp(13px,1.1vw,16px);line-height:1.5;padding-left:18px;position:relative;margin-bottom:8px}
+  .p li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg{list-style:none;margin-top:6px}
+  ul.seg li{font-size:clamp(14px,1.2vw,18px);line-height:1.55;padding-left:20px;position:relative;margin-bottom:9px}
+  ul.seg li:before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg li b{color:var(--white)}
+  .grid2{display:grid;gap:34px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin-top:10px}
+  .colh{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.5vw,21px);margin-bottom:14px}
+  table.bench{border-collapse:collapse;margin-top:14px;width:100%;max-width:1100px}
+  table.bench th{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(12px,1.05vw,15px);text-align:left;padding:12px 16px;border-bottom:2px solid var(--yellow);text-transform:uppercase;letter-spacing:.05em}
+  table.bench td{font-size:clamp(13px,1.15vw,17px);padding:12px 16px;border-bottom:1px solid #232323;line-height:1.45}
+  table.bench td:first-child{font-family:var(--head);font-weight:700;color:var(--white)}
+  table.bench .tbd{color:var(--mute)}
+  .pill{display:inline-block;background:#151515;border:1px solid #333;border-radius:100px;color:var(--txt);font-size:clamp(12px,1.05vw,15px);padding:8px 16px;margin:0 8px 10px 0;line-height:1.4}
+  .pill b{color:var(--yellow);font-family:var(--head);font-weight:700}
+  .note{display:inline-block;background:#0d0d0d;border-left:5px solid var(--yellow);border-radius:0 12px 12px 0;padding:16px 20px;margin-top:24px;font-size:clamp(13px,1.1vw,16px);line-height:1.55;color:#cfcfcf;max-width:80ch}
+  .note b{color:var(--white)}
+  @media screen and (max-width:1100px){
+    .price{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr;gap:8px}
+    .grid2{grid-template-columns:1fr}
+    section{padding:7vh 8vw}
+  }
+  @media print{
+    @page{size:1600px 1500px;margin:0}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    html,body{background:#000}
+    section{min-height:auto;height:auto;page-break-inside:avoid;page-break-after:always;padding:70px 90px;border-bottom:none;justify-content:flex-start}
+    .num{top:60px;right:90px}
+    .mark{bottom:60px;right:90px}
+  }
+</style>
+</head>
+<body>
+
+<section>
+  <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
+  <div class="kicker"><div class="bar"></div><span>Предварительный аудит · Направление Click Out</span></div>
+  <h1>Предварительный аудит:<br>ИРИС-М</h1>
+  <p class="sub">Ответ на ваш вопрос про Директ и бонусные рубли — как устроена шкала премирования Церебро и что даёт кабинет на бюджете 100 тыс ₽ — плюс план второго шага: брендформанс премиальных линз EDOF на пациентов 50+ в источниках Ozon Performance, Яндекс Urban Ads и Wildberries Click Out с приземлением на <b>iris-m.ru</b>.</p>
+  <div class="yline">Ozon Performance · Яндекс Urban Ads · WB Media</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">02</div>
+  <div class="kicker"><div class="bar"></div><span>Что мы услышали на встрече</span></div>
+  <h2>Точка старта: как это устроено<br>у вас сейчас</h2>
+  <div class="rows"><div class="row"><div class="l">Как приходят клиенты</div><div class="r">«Торговые представительства; Директ с бюджетом 100 тыс ₽» — продажи держатся на личных контактах с клиниками, диджитал — один канал на минимальном бюджете.</div></div><div class="row"><div class="l">Что хотели бы поменять</div><div class="r">«Денег нет» — а на деле: не умеют и не знают, как привлекать клиентов из диджитала. Дыра не в бюджете, а в отсутствии контура: кто, куда и зачем ведёт трафик.</div></div><div class="row"><div class="l">Стоимость заявки</div><div class="r">«Не меняется» — значит, Директ не масштабируется: при добавлении бюджета цена лида либо не растёт, либо её никто не считает.</div></div><div class="row"><div class="l">Узнаваемость</div><div class="r">«Только через торговые представительства» — узнаваемость среди хирургов есть, среди пациентов, которые выбирают линзу, — нет.</div></div><div class="row"><div class="l">Реклама до заявки или до выручки</div><div class="r">«До выручки; основное привлечение — госконтракты, окупаемость оборудования у клиники 6–7 месяцев» — реклама может влиять только на коммерческий сегмент: частные клиники, расходники, линзы.</div></div><div class="row"><div class="l">Диагноз</div><div class="r">Квалификация C: бюджет 100 тыс ₽ ниже порогов Ozon/WB (120 тыс) и на границе Urban (62,5 тыс). Бонусные рубли по шкале Церебро начинаются с расхода 360 001 ₽ в месяц — на текущем бюджете их нет, и мы это говорим прямо. Первый шаг — кабинет Директа через Церебро (бесплатно, без комиссии, с аудитом кампаний). Второй — пациентский флайт по линзам EDOF, чтобы спрос на премиальную линзу приходил в клиники «снизу».</div></div>
+  </div>
+  <div class="foot">Источник: разговор на выставке Конгресс офтальмологии · 03.09.2026. Формулировки сохранены близко к сказанному — если что-то передано неточно, поправим на созвоне.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">03</div>
+  <div class="kicker"><div class="bar"></div><span>Ваша ниша в цифрах</span></div>
+  <h2>Полмиллиона операций в год —<br>и пациент, который выбирает линзу</h2>
+  <div class="stats"><div class="stat"><div class="n">до 500 тыс.</div><div class="t">операций по поводу катаракты выполняется в России ежегодно (оценка Минздрава); МНТК — около 100 тыс.</div></div><div class="stat"><div class="n">6–7 мес.</div><div class="t">срок окупаемости оборудования у клиники по вашим словам — горизонт, на котором клиника принимает решение о покупке</div></div><div class="stat"><div class="n">с 2014</div><div class="t">ИРИС-М на рынке; эксклюзивный дистрибьютор EDOF-линз и позиций без аналогов на рынке РФ (iris-m.ru)</div></div><div class="stat"><div class="n">100 тыс ₽</div><div class="t">текущий месячный бюджет Директа — единственный диджитал-канал компании</div></div>
+  </div>
+  <p class="sub" style="margin-top:34px">Рынок офтальмологии в России растёт в деньгах в основном за счёт цен на услуги и оборудование (BusinesStat, 2025); частные клиники расширяют цикл «диагностика → операция → оптика» и закупают оборудование и расходники самостоятельно, вне госконтрактов. Премиальные интраокулярные линзы (EDOF, мультифокальные) — решение, которое пациент принимает вместе с хирургом и за которое доплачивает сам: аудитория 50+ ищет «какую линзу выбрать при катаракте» до операции. Это редкий для B2B-поставщика случай, когда спрос можно создавать со стороны пациента.</p>
+  <div class="foot">Источники: mpmo.ru (Минздрав, оценка), mntk.ru, BusinesStat (2025), iris-m.ru, разговор на стенде 03.09.2026.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">04</div>
+  <div class="kicker"><div class="bar"></div><span>Согласование проекта</span></div>
+  <h2>Запуск с Ozon Performance,<br>Яндекс Urban Ads и WB Media</h2>
+  <p class="sub">Для запуска проекта с рекламными платформами Ozon Performance, Яндекс Urban Ads и
+  Wildberries Click Out необходимо предварительное согласование площадок. При положительном решении
+  создание кабинетов занимает <b>3–5 рабочих дней</b>.</p>
+  <div class="cards" style="margin-top:26px">
+    <div class="card"><h3>Реклама внутри площадок — переход на ваш сайт</h3>
+      <p>Ozon, Яндекс Urban Ads и Wildberries продают показы своей аудитории внешним рекламодателям:
+      баннер человек видит внутри маркетплейса, а клик ведёт его из маркетплейса на ваш сайт —
+      не в карточку товара.</p></div>
+    <div class="card"><h3>Аудитория в режиме покупки</h3>
+      <p>Люди приходят на маркетплейс с уже сформированным желанием купить. Услуги в каталогах площадок
+      не продаются — за эту аудиторию с вами почти никто не конкурирует.</p></div>
+    <div class="card"><h3>Прогноз по вашему проекту</h3>
+      <p>Медицинское оборудование — поставка вне товарных каталогов площадок: аукцион Click Out свободен. Аудитории две: клиники и оптики (сегмент «Клиент B2B» на Ozon, категории медоборудования) и пациенты 50+ (премиальные линзы). Ограничение — порог бюджета: Click Out включаем вторым шагом, когда рессейлинг Директа вернёт часть бюджета. Реклама медицинских изделий — с предупреждением по ст. 24 ФЗ «О рекламе» и регистрационными удостоверениями на модерации.</p></div>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">05</div>
+  <div class="kicker"><div class="bar"></div><span>Ozon Performance · Таргетинги</span></div>
+  <h2>Ozon Performance: кого можем<br>выбирать для показа</h2>
+  <div class="rows">
+    <div class="row"><div class="l">Авторизация</div><div class="r">Все покупатели · Неавторизованные · Авторизованные</div></div>
+    <div class="row"><div class="l">Демография</div><div class="r">Пол, возраст</div></div>
+    <div class="row"><div class="l">Регион</div><div class="r">Область, город</div></div>
+    <div class="row"><div class="l">Сегменты</div><div class="r">Покупают в категории · Смотрят категорию · Активный Premium · Клиент B2B · Собственный сегмент из номеров телефонов (хэш)</div></div>
+  </div>
+  <div class="foot">Форматы: видеобаннер, баннер на главной и в поиске, размещение в карточке товара, экран «заказ выполнен». 65 млн активных покупателей за 2025 год, в среднем 38 заказов на человека.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">06</div>
+  <div class="kicker"><div class="bar"></div><span>Ozon Performance · Сегменты</span></div>
+  <h2>Сегменты под ИРИС-М</h2>
+  <p class="sub">Сегменты собраны из категорий каталога Ozon 1-го и 2-го уровня, которые формируют
+  ваших потенциальных клиентов:</p>
+  <div class="grid2">
+    <div><div class="colh">Основные сегменты</div><ul class="seg"><li>Сегмент <b>«Клиент B2B»</b> + покупают в категории <b>«Медицинские приборы и оборудование»</b> через юрлицо — частные клиники и оптики</li><li>Покупают в категории <b>«Аптека → Офтальмология»</b> (капли, витамины для зрения) 50+ — пациенты с диагнозом</li><li>Покупают в категории <b>«Красота и здоровье → Оптика»</b> (очки для чтения, лупы) 50+ — возрастное снижение зрения</li><li>Сегмент <b>«Активный Premium»</b> 50–70 — платёжеспособные пациенты, готовые доплачивать за премиальную линзу</li><li>Собственный сегмент из базы клиник (хэш телефонов из CRM торговых представителей) + look-a-like</li></ul></div>
+    <div><div class="colh">Дополнительные фильтры</div><ul class="seg"><li>Пациентский флайт: возраст 50–70, вся РФ с приоритетом городов, где есть клиники-партнёры</li><li>B2B-флайт: возраст 30–55, авторизованные, Москва + миллионники</li><li>Пол: любой; в пациентском флайте женщины 55+ — основные покупатели аптеки</li><li>Авторизация: все покупатели (пациенты), авторизованные (B2B)</li></ul></div>
+  </div>
+  <div class="note">Ozon Бизнес — 600 тыс. активных клиентов-юрлиц, 9 из 10 — малый бизнес: частные клиники и оптики закупают расходники там же, где канцелярию. Пациентский сегмент «Аптека → Офтальмология» 50+ — это люди с диагнозом, а не прокси.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">07</div>
+  <div class="kicker"><div class="bar"></div><span>Ozon Performance · Бенчмарки</span></div>
+  <h2>Бенчмарки для предварительного расчёта</h2>
+  
+    <table class="bench">
+      <tr><th>Сегмент / формат</th><th>Показы</th><th>Уникальные пользователи</th><th>Клики</th><th>CPM</th><th>CTR</th><th>CPC</th></tr>
+      <tr><td>Клиент B2B + медоборудование</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Аптека → Офтальмология / Оптика 50+</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Look-a-like по базе клиник</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+    </table>
+    <div class="note"><b>Бенчмарки по выбранным сегментам собираются в рекламных кабинетах площадки</b> — показы, уникальные пользователи, клики, CPM, CTR, CPC по каждому сегменту будут добавлены в финальную версию аудита.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">08</div>
+  <div class="kicker"><div class="bar"></div><span>Яндекс Urban Ads · Форматы</span></div>
+  <h2>Яндекс Urban Ads: форматы<br>и площадки показа</h2>
+  <div class="cards">
+    <div class="card"><div class="big">0,64%</div><h3>Видеобаннер</h3>
+      <p>ср. CPM 641 ₽ · ср. CPC 100 ₽. Главная страница Маркета, десктоп и мобайл.</p></div>
+    <div class="card"><div class="big">0,41%</div><h3>Баннер-растяжка</h3>
+      <p>ср. CPM 182 ₽ · ср. CPC 44 ₽. Все страницы Маркета, кроме корзины и оплаты.</p></div>
+    <div class="card"><div class="big">0,35%</div><h3>Горизонтальный баннер</h3>
+      <p>ср. CPM 342 ₽ · ср. CPC 98 ₽. Маркет, Go, Деливери, Еда, Лавка, Кинопоиск — главная, лента, карточка товара.</p></div>
+    <div class="card"><div class="big">0,33%</div><h3>Вертикальный баннер</h3>
+      <p>ср. CPM 96 ₽ · ср. CPC 29 ₽. Лента товаров на главной Маркета, карточка товара на десктопе.</p></div>
+  </div>
+  <div class="foot">До 94 млн аудитории в месяц по сервисам Яндекса: Маркет, Еда, Лавка, Go. 60% — доход средний и выше.
+  Оплата по CPM, минимальная ставка 50 ₽. Таргетинги: гео, интересы и покупки на Маркете, соцдем, доход,
+  подписка Плюс, CRM-ретаргетинг по вашей базе.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">09</div>
+  <div class="kicker"><div class="bar"></div><span>Яндекс Urban Ads · Сегменты</span></div>
+  <h2>Сегменты под ИРИС-М</h2>
+  <p class="sub">Сегменты «интересуются категорией» и «покупали в категории» по каталогу Яндекс Маркета
+  1-го и 2-го уровня плюс look-a-like и ретаргетинг:</p>
+  <div class="grid2">
+    <div><div class="colh">Основные сегменты</div><ul class="seg"><li>Интересуются категорией <b>«Здоровье → Аптека → Офтальмология»</b> и <b>«Оптика»</b>, 50+</li><li>Интересуются категорией <b>«Медицинское оборудование»</b> на Маркете — B2B-закупщики клиник</li><li>Тарифы такси <b>Комфорт+</b>, возраст 55+ — платёжеспособные пациенты</li><li>Готовые сегменты медийки Яндекса: интерес «Здоровье», «Медицинские услуги»</li><li>Look-a-like по базе клиник + ретаргетинг посетителей iris-m.ru</li></ul></div>
+    <div><div class="colh">Дополнительные фильтры</div><ul class="seg"><li>Возраст: 50–70 (пациенты) / 30–55 (B2B)</li><li>Доход: средний и выше</li><li>Гео: города с клиниками-партнёрами ИРИС-М</li><li>Показы: Маркет, Go, Еда, Лавка; ставка от 50 ₽ CPM — порог входа 62,5 тыс ₽/мес</li></ul></div>
+  </div>
+  <div class="note">Пациент перед операцией ищет «линза при катаракте какую выбрать» — категория «Аптека / Оптика» на Маркете для 50+ ловит его в момент подготовки. Urban Ads — единственный источник Click Out с порогом ниже вашего текущего бюджета.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">10</div>
+  <div class="kicker"><div class="bar"></div><span>Яндекс Urban Ads · Бенчмарки</span></div>
+  <h2>Бенчмарки для предварительного расчёта</h2>
+  
+    <table class="bench">
+      <tr><th>Сегмент / формат</th><th>Показы</th><th>Уникальные пользователи</th><th>Клики</th><th>CPM</th><th>CTR</th><th>CPC</th></tr>
+      <tr><td>Оптика + аптека, 50+</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Медоборудование (B2B)</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Комфорт+ 55+</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+    </table>
+    <div class="note"><b>Бенчмарки по выбранным сегментам собираются в рекламных кабинетах площадки</b> — показы, уникальные пользователи, клики, CPM, CTR, CPC по каждому сегменту будут добавлены в финальную версию аудита.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">11</div>
+  <div class="kicker"><div class="bar"></div><span>WB Media · Сегменты</span></div>
+  <h2>Сегменты под ИРИС-М</h2>
+  <p class="sub">79 млн посетителей, из них 49 млн покупателей; 78% — женщины 25–44. Поведенческие
+  сегменты DMP на основе реальных покупок, по каталогу WB 1-го и 2-го уровня:</p>
+  <div class="grid2">
+    <div><div class="colh">Основные сегменты</div><ul class="seg"><li>Интересуются категорией <b>«Здоровье → Оптика»</b> (очки для чтения, линзы), 50+</li><li>Интересуются категорией <b>«Здоровье → Медицинские приборы»</b></li><li>Интересуются категорией <b>«Здоровье → Витамины и БАД»</b> (для зрения), 50+</li><li>DMP: покупали оптику или БАДы для зрения за последние 90 дней</li></ul></div>
+    <div><div class="colh">Дополнительные фильтры</div><ul class="seg"><li>Возраст: 50–70</li><li>Пол: женщины в приоритете — 78% аудитории площадки</li><li>Гео: города с клиниками-партнёрами</li><li>Только пациентский флайт; порог 120 тыс ₽/мес — третий шаг</li></ul></div>
+  </div>
+  <div class="note">WB — только пациентский флайт по линзам: B2B-аудитории клиник на площадке почти нет. Включаем последним, когда Директ и Urban дадут первые бенчмарки.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">12</div>
+  <div class="kicker"><div class="bar"></div><span>WB Media · Бенчмарки</span></div>
+  <h2>Бенчмарки для предварительного расчёта</h2>
+  
+    <table class="bench">
+      <tr><th>Сегмент / формат</th><th>Показы</th><th>Уникальные пользователи</th><th>Клики</th><th>CPM</th><th>CTR</th><th>CPC</th></tr>
+      <tr><td>Оптика (очки для чтения) 50+</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Медицинские приборы</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+      <tr><td>Широкая 50+, женщины</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td><td class="tbd">после сбора</td></tr>
+    </table>
+    <div class="note"><b>Бенчмарки по выбранным сегментам собираются в рекламных кабинетах площадки</b> — показы, уникальные пользователи, клики, CPM, CTR, CPC по каждому сегменту будут добавлены в финальную версию аудита.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">13</div>
+  <div class="kicker"><div class="bar"></div><span>Сравнение источников</span></div>
+  <h2>Средние показатели клиентов СРК<br>в направлении Click Out</h2>
+  <div class="cards">
+    <div class="card"><div class="big">0,64%</div><h3>Ozon Performance</h3>
+      <p>CPC — 35,11 ₽ · CPM — 224,02 ₽</p></div>
+    <div class="card"><div class="big">0,56%</div><h3>Яндекс Urban Ads</h3>
+      <p>CPC — 26,45 ₽ · CPM — 149,31 ₽</p></div>
+    <div class="card"><div class="big">0,96%</div><h3>WB Media</h3>
+      <p>CPC — 20,93 ₽ · CPM — 200,11 ₽</p></div>
+  </div>
+  <div class="foot">Аудитории площадок не складываются: это три разные среды, и человек может быть сразу в нескольких.
+  Комплекс из трёх источников нужен не ради суммы охвата, а ради частоты касаний и разных сценариев показа.
+  Данные основаны на реальных кампаниях клиентов СРК; показатели по вашей нише будут уточнены после сбора бенчмарков по выбранным сегментам.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">14</div>
+  <div class="kicker"><div class="bar"></div><span>Чем отличаемся</span></div>
+  <h2>Мы доказываем, что спрос<br>создала реклама</h2>
+  <p class="sub">Обычный отчёт показывает показы, клики и заявки по последнему клику. Он не отвечает
+  на главный вопрос: <b>сколько обращений пришло бы и без рекламы.</b> Мы отвечаем — четырьмя замерами.</p>
+  <div class="rows">
+    <div class="row"><div class="l">Search lift</div><div class="r">Прирост поиска по вашему имени. Снимаем частотность в Вордстате до старта, во время рекламы и месяц после, отдельно ведём контрольный запрос категории — чтобы отделить ваш рост от роста рынка.</div></div>
+    <div class="row"><div class="l">Brand lift</div><div class="r">Прирост знания и намерения. Опрос двух групп до кампании и после: город с рекламой против сопоставимого города без неё. Упрощённая схема — от ~12 тыс ₽; Brand Lift площадки — от порога охвата. Часто это первая в жизни компании цифра узнаваемости.</div></div>
+    <div class="row"><div class="l">Sales lift</div><div class="r">Прирост в деньгах. Гео-эксперимент: районы или города с рекламой против сопоставимых без неё, по выгрузке из вашей CRM (нужна история по гео за 6–12 месяцев). Меряет не мнения, а кассу.</div></div>
+    <div class="row"><div class="l">Post-view</div><div class="r">Эффект показов без клика. Человек увидел баннер, не кликнул, а через две недели пришёл сам — в обычной аналитике это «прямой заход». Мы показываем этот слой отдельно: недельные ряды непереходного трафика на календаре флайта.</div></div>
+  </div>
+  <div class="foot">Часть замеров — наш собственный контур, доступен на любом бюджете. Исследования площадок
+  (Brand Lift Study, Sales Lift, post-view отчёт) подключаются от своих порогов и работают как подтверждение от третьей стороны.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">15</div>
+  <div class="kicker"><div class="bar"></div><span>Замеры · Что говорят данные</span></div>
+  <h2>Что показывают исследования<br>в вашей нише</h2>
+  <div class="rows"><div class="row"><div class="l">Search lift</div><div class="r">Исследование Easy Commerce (20 брендов, медийная реклама на Ozon, замер Вордстат + внутренний поиск): бюджет до 100 тыс ₽ — прирост брендовых запросов 5–12%; 100–300 тыс ₽ — 15–35%; от 300 тыс ₽ — 40–90%; от 500 тыс ₽ при широком охвате — 80–150%, эффект держится месяцы. Порог по показам: до 100 тыс показов эффекта нет, 1–3 млн — устойчивый рост (sostav.ru, 2026). Официальный Search Lift Яндекса: тест 90% / контроль 10%, кампания от 21 дня, охват от 1 млн (кейс Polaris: +14%). Замер: «ирис-м» и названия линз EDOF из портфеля против контрольного «линза при катаракте» — на бюджете до 100 тыс ₽ ждём прирост 5–12%, честно.</div></div><div class="row"><div class="l">Brand lift</div><div class="r">Brand Lift Яндекса — бесплатное исследование при бюджете от ~1 млн ₽ и охвате от 2 млн: метрики ad recall, знание бренда, намерение, Top of Mind. Кейсы РФ: «Кагоцел» — запоминаемость рекламы +21,6%; Ozon fresh (опрос OMI) — знание рекламы +8 п.п., знание бренда +3 п.п. При меньших бюджетах — упрощённая схема опросов от ~12 тыс ₽ (две волны, город с рекламой против контрольного). Для ИРИС-М — опрос хирургов и заведующих через торговых представителей двумя волнами: знание линз до и после пациентского флайта (от ~12 тыс ₽).</div></div><div class="row"><div class="l">Sales lift</div><div class="r">Sales Lift Яндекса (охват от 2 млн, период 4–6 недель): кейс Polaris — видевшие медийную рекламу совершили 34% всех онлайн-покупок бренда, тогда как post-click атрибуция показывала менее 1%. Кейс «Кагоцел» — +29% продаж за период кампании. Брендформанс+перформанс на Ozon: заказы +52% в период кампании и остаточный эффект +21–30% в следующие два месяца (sostav.ru, 2026). Гео-эксперимент по отгрузкам линз и расходников частным клиникам: регион с рекламой против контрольного, данные 1С за 6–12 месяцев; горизонт — квартал, под окупаемость 6–7 месяцев.</div></div><div class="row"><div class="l">Post-view</div><div class="r">Ozon Performance: атрибуция заказов 30 дней после контакта с баннером, vCPM (показ засчитан при ≥50% баннера ≥2 сек). Яндекс: post-view окно до 90 дней через пиксель Метрики (настраивается 1–30 дней). Отложенные конверсии в медийных кампаниях зачастую составляют основную долю покупок: у Polaris post-click показывал <1% против реальных 34% вклада. B2B-цикл — недели и месяцы: окно 90 дней, недельные ряды входящих запросов КП вне рекламных переходов.</div></div>
+  </div>
+  <div class="foot">Вы считаете рекламу до выручки, при этом основной канал — госконтракты. Замеры ставим только на коммерческий сегмент (частные клиники, расходники, линзы), где реклама вообще может влиять на кассу.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">16</div>
+  <div class="kicker"><div class="bar"></div><span>Замеры · План для вас</span></div>
+  <h2>Какие замеры поставим<br>на вашем проекте</h2>
+  <div class="cards"><div class="card"><h3>Search lift · собственный</h3><p>Вордстат: «ирис-м», названия линз, «edof линза» против контрольного «линза при катаракте» — до старта, во время флайта, месяц после.</p></div><div class="card"><h3>Brand lift · через представителей</h3><p>Две волны опроса хирургов и заведующих отделениями клиник-партнёров: знание линз EDOF и готовность предлагать пациенту — до и после флайта.</p></div><div class="card"><h3>Sales lift · по 1С</h3><p>Отгрузки частным клиникам по регионам: регион с пациентским флайтом против контрольного; замер «до» — в рамках бесплатного аудита.</p></div><div class="card"><h3>Post-view · 90 дней</h3><p>Пиксели площадок на iris-m.ru; ряды запросов КП и звонков торговым представителям на календаре флайта.</p></div>
+  </div>
+  <div class="yline">Замер «до» снимаем в рамках бесплатного аудита — ещё до подписания договора</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">17</div>
+  <div class="kicker"><div class="bar"></div><span>Рессейлинг · Другие площадки</span></div>
+  <h2>Тринадцать рекламных кабинетов<br>в одном окне</h2>
+  <p class="sub">Через Церебро открываются кабинеты всех ключевых рекламных систем РФ — софт позволяет
+  создавать кабинеты, выдавать доступы и распределять деньги между ними в несколько кликов.</p>
+  <div class="yline" style="margin-top:26px;font-size:clamp(14px,1.35vw,19px);line-height:1.6">
+  VK Ads · VK AdBlogger · Telega.in · Яндекс Директ · Telegram Ads · Яндекс Бизнес · Авито Реклама ·
+  Яндекс ПромоСтраницы · SberAds · Bidfox · Hybrid · Яндекс Навигатор · Ozon Performance</div>
+  <div class="cards" style="margin-top:30px"><div class="card"><h3>Единое окно</h3><p>Софт, в котором кабинет создаётся, доступы выдаются, а деньги перекидываются между кабинетами в несколько кликов. Открытие бесплатное, комиссии за пополнение нет, сбора 3% нет.</p></div><div class="card"><h3>Документы без нервов</h3><p>Обмен через ЭДО, закрывающие документы в срок.</p></div><div class="card"><h3>Живая поддержка</h3><p>Отвечаем на вопросы о рекламе, помогаем пройти модерацию, решаем проблемы с документами и багами. При откруте от 1,5 млн ₽ — чат с персональным менеджером.</p></div><div class="card"><h3>Аудит и обучение</h3><p>Аудит рекламных кампаний от практикующих специалистов: точки роста, ошибки, стратегии повышения эффективности. Плюс обучающие курсы. Для специалистов и агентств — возврат до 18% от открученного рекламного бюджета.</p></div>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">18</div>
+  <div class="kicker"><div class="bar"></div><span>Рессейлинг · Каналы под вашу нишу</span></div>
+  <h2>Рессейлинг Яндекс Директ:<br>ответ на вопрос про бонусные рубли</h2>
+  <div class="rows"><div class="row"><div class="l">Бонусные рубли</div><div class="r">Шкала премирования Церебро (экран «Ozon Performance · Условия»): бонусные рубли начисляются с расхода 360 001 ₽ в месяц — 10%, дальше до 18% на больших объёмах. На бюджете 100 тыс ₽ бонусных рублей нет — честный ответ на ваш вопрос. Условия шкалы для Директа подтверждаем отдельно на созвоне.</div></div><div class="row"><div class="l">Яндекс Директ через Церебро</div><div class="r">Что вы получаете на 100 тыс ₽ уже сейчас: кабинет бесплатно, без комиссии за пополнение и сбора 3%, ЭДО и закрывающие в срок, поддержка модерации медицинской тематики.</div></div><div class="row"><div class="l">Аудит Директа</div><div class="r">Бесплатный аудит текущих кампаний практикующими специалистами: куда уходят 100 тыс ₽ сейчас, какие запросы приносят КП, что отключить. Ответ на «не умеем привлекать из диджитала».</div></div><div class="row"><div class="l">Яндекс Бизнес</div><div class="r">Карточка компании в поиске и картах: «офтальмологическое оборудование купить», «интраокулярные линзы поставщик» — закупщики клиник ищут так.</div></div><div class="row"><div class="l">Telegram Ads + Telega.in</div><div class="r">Каналы офтальмологов и медицинских закупщиков — B2B-среда, где живут хирурги; посевы обзоров линз.</div></div><div class="row"><div class="l">VK Ads</div><div class="r">Профессиональные сообщества офтальмологов и ретаргетинг посетителей iris-m.ru; пациентские сообщества 50+ под флайт по линзам.</div></div><div class="row"><div class="l">Яндекс ПромоСтраницы</div><div class="r">Лонгрид «как выбрать линзу при катаракте: EDOF, мультифокальная, монофокальная» с переходом к списку клиник-партнёров — создание спроса на линзу со стороны пациента.</div></div>
+  </div>
+  <div class="foot">На бюджете 100 тыс ₽ рессейлинг — первый шаг: не требует нового бюджета, даёт аудит и поддержку, а бонусные рубли появятся при росте расхода до 360 тыс ₽ в месяц — например, когда к Директу добавится пациентский флайт.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">19</div>
+  <div class="kicker"><div class="bar"></div><span>Ozon Performance · Условия</span></div>
+  <h2>Шкала премирования клиентов Церебро<br>в направлении Ozon Performance</h2>
+  <div class="cards" style="margin-top:10px">
+    <div class="card">
+      <h3>Рессейлинг — кабинет ведёте сами: бонусные рубли с расхода</h3>
+      <table class="bench">
+        <tr><th>Расход в месяц, без НДС</th><th>Бонусные рубли клиенту</th></tr>
+        <tr><td>до 360 000 ₽</td><td>0%</td></tr>
+        <tr><td>360 001 — 1 099 999 ₽</td><td>10%</td></tr>
+        <tr><td>1 100 000 — 1 999 999 ₽</td><td>12%</td></tr>
+        <tr><td>2 000 000 — 6 999 999 ₽</td><td>14%</td></tr>
+        <tr><td>7 000 000 — 9 999 999 ₽</td><td>16%</td></tr>
+        <tr><td>от 10 000 000 ₽</td><td>18%</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>СРК — кабинет ведёт специалист Церебро: скидка на сопровождение</h3>
+      <table class="bench">
+        <tr><th>Расход в месяц, без НДС</th><th>СРК без скидки</th><th>СРК со скидкой</th></tr>
+        <tr><td>до 200 000 ₽</td><td>50 000 ₽</td><td>50 000 ₽</td></tr>
+        <tr><td>200 001 — 360 000 ₽</td><td>20%</td><td>20%</td></tr>
+        <tr><td>360 001 — 1 099 999 ₽</td><td>20%</td><td>10%</td></tr>
+        <tr><td>1 100 000 — 1 999 999 ₽</td><td>20%</td><td>8%</td></tr>
+        <tr><td>2 000 000 — 6 999 999 ₽</td><td>20%</td><td>6%</td></tr>
+        <tr><td>7 000 000 — 9 999 999 ₽</td><td>20%</td><td>4%</td></tr>
+        <tr><td>от 10 000 000 ₽</td><td>20%</td><td>2%</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="foot">Бонусные рубли начисляются раз в квартал — в течение 30 дней по окончании квартала — при суммарном
+  квартальном расходе в рекламном источнике от 360 001 ₽. Минимальная оплата СРК — раз в месяц с даты оплаты
+  услуг, независимо от расхода в кабинете; скидка на СРК начисляется ежемесячно на следующий месяц при
+  соблюдении минимального расхода в текущем. При работе с СРК бонусные рубли не начисляются — действует только
+  скидка на сопровождение; вариант «СРК + бонусные рубли» невозможен. Стоимость СРК указана с НДС.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">20</div>
+  <div class="kicker"><div class="bar"></div><span>Готовность к приёму трафика</span></div>
+  <h2>Сайт и аналитика:<br>что проверить до старта</h2>
+  <div class="rows"><div class="row"><div class="l">Посадочная</div><div class="r">iris-m.ru — каталог с диагностикой, хирургией и расходниками есть. Под рекламу нужны посадочные под группу: «линзы EDOF для клиник» с формой КП и пациентская страница «где имплантируют» со списком клиник-партнёров.</div></div><div class="row"><div class="l">Аналитика</div><div class="r">Метрика с целями на КП, звонок и скачивание каталога; коллтрекинг — звонки сейчас уходят торговым представителям и не считаются.</div></div><div class="row"><div class="l">CRM</div><div class="r">Связка заявка → КП → отгрузка (1С) — без неё замер «до выручки» невозможен и цена лида «не меняется» только потому, что её не считают.</div></div><div class="row"><div class="l">Юридическое</div><div class="r">Предупреждение о противопоказаниях для медицинских изделий и регистрационные удостоверения — на модерацию площадок.</div></div>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">21</div>
+  <div class="kicker"><div class="bar"></div><span>Условия работы</span></div>
+  <h2>Сопровождение: чем больше<br>источников, тем ниже цена</h2>
+  <div class="price">
+    <div class="p">
+      <h3>Один источник</h3>
+      <div class="now">50 000 ₽</div>
+      <div class="per">в месяц за сопровождение</div>
+      <ul><li>Ozon, Urban Ads или WB на выбор</li><li>Полный аналитический контур</li><li>Недельная и месячная отчётность</li></ul>
+    </div>
+    <div class="p">
+      <h3>Два источника</h3>
+      <div class="was">100 000 ₽</div>
+      <div class="now">80 000 ₽</div>
+      <div class="per">в месяц · скидка 20% на тестовый период</div>
+      <ul><li>Любые два из трёх</li><li>Сравнение источников на ваших данных</li><li>Перераспределение бюджета между ними</li></ul>
+    </div>
+    <div class="p best">
+      <div class="tag">Максимум охвата</div>
+      <h3>Три источника</h3>
+      <div class="was">150 000 ₽</div>
+      <div class="now">90 000 ₽</div>
+      <div class="per">в месяц · скидка 40% на тестовый период</div>
+      <ul><li>Ozon + Urban Ads + WB</li><li>Разные среды и сценарии показа</li><li>Частота касаний, которую не даёт один канал</li></ul>
+    </div>
+  </div>
+  <div class="rows" style="margin-top:26px">
+    <div class="row"><div class="l">Рекламный бюджет</div><div class="r">От 120 000 ₽ в месяц на каждый источник — порог, ниже которого площадка не набирает объём для выводов. Минимальный бюджет на тест источника — 50 000 ₽.</div></div>
+    <div class="row"><div class="l">Срок контракта</div><div class="r">От шести месяцев. Медийный эффект читается на горизонте 6–8 недель, решения по бюджету принимаются по кварталу.</div></div>
+    <div class="row"><div class="l">Что входит</div><div class="r">Ведение кампаний, креативы, аналитический контур, замеры, отчётность и документ-решение в конце цикла.</div></div>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">22</div>
+  <div class="kicker"><div class="bar"></div><span>Рекомендации и выводы</span></div>
+  <h2>Рекомендации по запуску</h2>
+  <ul class="seg"><li>Шаг 1, на этой неделе: <b>кабинет Директа в Церебро</b> — бесплатно, без комиссии, с бесплатным аудитом текущих кампаний; бонусные рубли — по шкале от 360 001 ₽ расхода в месяц</li><li>Шаг 2: <b>Яндекс Urban Ads</b> — пациентский флайт по линзам EDOF для 50+ (порог 62,5 тыс ₽/мес — единственный источник Click Out под ваш бюджет)</li><li>Шаг 3: <b>Ozon Performance</b> с сегментом «Клиент B2B» и look-a-like по базе клиник — при бюджете от 120 тыс ₽ на источник</li><li>Посадочные под линзы для клиник и для пациентов + коллтрекинг — до старта любой рекламы</li><li>Замер «до» — Вордстат по линзам и отгрузки по регионам — снимаем в рамках бесплатного аудита</li></ul>
+  <div class="foot">Все данные основаны на реальных бенчмарках Ozon Performance, Urban Ads и WB Media.
+  Показатели по вашей нише будут уточнены после сбора бенчмарков по выбранным сегментам.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">23</div>
+  <div class="kicker"><div class="bar"></div><span>Следующий шаг</span></div>
+  <h1>Следующий шаг — кабинет Директа<br>и план пациентского флайта</h1>
+  <p class="sub">На созвоне — условия открытия кабинета Яндекс Директа через Церебро, бесплатный аудит текущих кампаний и экономика пациентского флайта по линзам в Urban Ads. Открытие кабинетов — 3–5 рабочих дней, запуск кампании — от 7 дней.</p>
+  <div class="yline">Церебро Таргет · направление Click Out<br>clickout.cerebrotarget.ru</div>
+  <div class="mark">Ц</div>
+</section>
+</body>
+</html>

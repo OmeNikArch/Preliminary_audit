@@ -555,9 +555,15 @@ def build(client_key, c):
 
 
 def build_index():
+    def extra_links(c):
+        links = c.get("extra", [])
+        if not links:
+            return ""
+        return '<p class="cap">' + " · ".join(
+            f'<a href="{f}" style="color:var(--yellow)">{label}</a>' for label, f in links) + "</p>"
     items = "".join(
         f'<div class="card"><h3><a href="{c["file"]}" style="color:var(--yellow);text-decoration:none">{c["name_ru"]}</a></h3>'
-        f'<p>{c["niche_ru"]} · {c["site"]}</p></div>'
+        f'<p>{c["niche_ru"]} · {c["site"]}</p>{extra_links(c)}</div>'
         for c in CLIENTS.values()
     )
     return f"""<!doctype html>
@@ -574,7 +580,7 @@ def build_index():
 <body>
 <section>
   <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
-  <div class="kicker"><div class="bar"></div><span>Предварительные аудиты · ОТДЫХ Leisure 02–04.09</span></div>
+  <div class="kicker"><div class="bar"></div><span>Предварительные аудиты · ОТДЫХ Leisure и Конгресс офтальмологии · 02–04.09</span></div>
   <h1>Аудиты по заявкам<br>с выставки</h1>
   <div class="cards" style="margin-top:20px">{items}</div>
   <div class="mark">Ц</div>

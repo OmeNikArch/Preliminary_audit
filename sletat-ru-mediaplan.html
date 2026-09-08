@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Медиаплан теста · Слетать.ру · Cerebro Click Out</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --card:#272727; --card2:#111;
+    --txt:#E7E6E6; --mute:#A5A5A5; --yellow:#FDD101; --white:#fff;
+    --head:'Unbounded', Arial, sans-serif; --body:Arial, Helvetica, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--body)}
+  section{min-height:100vh;padding:6vh 7vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-bottom:1px solid #1a1a1a}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .kicker .bar{width:44px;height:8px;background:var(--yellow)}
+  .kicker span{font-family:var(--head);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--yellow);text-transform:uppercase}
+  .num{position:absolute;top:5vh;right:7vw;color:var(--mute);font-size:14px}
+  h1{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(28px,4.6vw,58px);line-height:1.1;margin-bottom:24px}
+  h2{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(23px,3.2vw,42px);line-height:1.14;margin-bottom:26px}
+  .sub{font-size:clamp(16px,1.6vw,22px);line-height:1.45;max-width:70ch}
+  .sub b{color:var(--white)}
+  .yline{color:var(--yellow);font-family:var(--head);font-weight:700;font-size:clamp(16px,1.7vw,24px);margin-top:32px;line-height:1.3}
+  .logo{display:flex;align-items:center;gap:16px;margin-bottom:44px}
+  .logo .sign{width:56px;height:56px;background:var(--white);border:7px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:26px}
+  .logo .nm{font-family:var(--head);font-weight:700;color:var(--white);font-size:18px;line-height:1.25}
+  .mark{position:absolute;bottom:5vh;right:7vw;width:38px;height:38px;background:var(--white);border:5px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:17px;opacity:.9}
+  .cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:10px}
+  .card{background:var(--card);border-radius:18px;padding:26px 28px}
+  .card h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:12px}
+  .card p{font-size:clamp(13px,1.15vw,17px);line-height:1.5;color:var(--txt)}
+  .card .big{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(26px,3.2vw,44px);line-height:1;margin-bottom:10px}
+  .card .cap{color:var(--mute);font-size:13px;margin-top:12px;line-height:1.4}
+  .stats{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:14px}
+  .stat .n{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(30px,4vw,56px);line-height:1}
+  .stat .t{color:var(--txt);font-size:clamp(13px,1.15vw,17px);margin-top:10px;line-height:1.4}
+  .rows{margin-top:12px;max-width:1150px}
+  .row{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:26px;padding:20px 0;border-top:1px solid #232323;align-items:start}
+  .row .l{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(14px,1.3vw,19px)}
+  .row .r{font-size:clamp(14px,1.2vw,18px);line-height:1.5}
+  .foot{margin-top:34px;color:var(--mute);font-size:clamp(12px,1vw,15px);line-height:1.5;max-width:80ch}
+  .price{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:10px}
+  .p{background:var(--card2);border:1px solid #262626;border-radius:18px;padding:26px 28px;position:relative}
+  .p.best{border-color:var(--yellow)}
+  .p .tag{position:absolute;top:-13px;left:26px;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px}
+  .p h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:16px}
+  .p .was{color:var(--mute);text-decoration:line-through;font-size:15px}
+  .p .now{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(24px,2.8vw,38px);line-height:1.1;margin:6px 0 4px}
+  .p .per{color:var(--mute);font-size:13px}
+  .p ul{list-style:none;margin-top:16px}
+  .p li{font-size:clamp(13px,1.1vw,16px);line-height:1.5;padding-left:18px;position:relative;margin-bottom:8px}
+  .p li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg{list-style:none;margin-top:6px}
+  ul.seg li{font-size:clamp(14px,1.2vw,18px);line-height:1.55;padding-left:20px;position:relative;margin-bottom:9px}
+  ul.seg li:before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg li b{color:var(--white)}
+  .grid2{display:grid;gap:34px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin-top:10px}
+  .colh{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.5vw,21px);margin-bottom:14px}
+  table.bench{border-collapse:collapse;margin-top:14px;width:100%;max-width:1100px}
+  table.bench th{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(12px,1.05vw,15px);text-align:left;padding:12px 16px;border-bottom:2px solid var(--yellow);text-transform:uppercase;letter-spacing:.05em}
+  table.bench td{font-size:clamp(13px,1.15vw,17px);padding:12px 16px;border-bottom:1px solid #232323;line-height:1.45}
+  table.bench td:first-child{font-family:var(--head);font-weight:700;color:var(--white)}
+  table.bench .tbd{color:var(--mute)}
+  .pill{display:inline-block;background:#151515;border:1px solid #333;border-radius:100px;color:var(--txt);font-size:clamp(12px,1.05vw,15px);padding:8px 16px;margin:0 8px 10px 0;line-height:1.4}
+  .pill b{color:var(--yellow);font-family:var(--head);font-weight:700}
+  .note{display:inline-block;background:#0d0d0d;border-left:5px solid var(--yellow);border-radius:0 12px 12px 0;padding:16px 20px;margin-top:24px;font-size:clamp(13px,1.1vw,16px);line-height:1.55;color:#cfcfcf;max-width:80ch}
+  .note b{color:var(--white)}
+  @media screen and (max-width:1100px){
+    .price{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr;gap:8px}
+    .grid2{grid-template-columns:1fr}
+    section{padding:7vh 8vw}
+  }
+  @media print{
+    @page{size:1600px 1500px;margin:0}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    html,body{background:#000}
+    section{min-height:auto;height:auto;page-break-inside:avoid;page-break-after:always;padding:70px 90px;border-bottom:none;justify-content:flex-start}
+    .num{top:60px;right:90px}
+    .mark{bottom:60px;right:90px}
+  }
+
+  table.bench td, table.bench th{white-space:nowrap}
+  table.bench td:first-child{white-space:normal;min-width:220px}
+</style>
+</head>
+<body>
+
+<section>
+  <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
+  <div class="kicker"><div class="bar"></div><span>Медиаплан теста · Направление Click Out</span></div>
+  <h1>Медиаплан теста:<br>Слетать.ру</h1>
+  <p class="sub">Короткая смета по вашему запросу: сколько вкладываем в каждый источник — сколько получаем
+  показов, кликов и по какой цене. Расчёт по бенчмаркам ваших сегментов из рекламных кабинетов площадок
+  (те же цифры, что в предварительном аудите); перед стартом значения сверяем прогнозаторами кабинетов.</p>
+  <div class="yline">Ozon Performance · Яндекс Urban Ads</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">02</div>
+  <div class="kicker"><div class="bar"></div><span>Статусы согласования · на 3 сентября</span></div>
+  <h2>Два источника в плане,<br>третий недоступен</h2>
+  <div class="cards">
+    <div class="card"><div class="big">✓</div><h3>Ozon Performance — предварительно одобрен</h3>
+      <p>Ответ площадки: «Клиента к размещению примем, путешествия — это хорошо. Можем сразу добавить сегмент
+      с высокой пользовательской активностью или под бюджет согласовать кастомный сегмент путешественников».</p></div>
+    <div class="card"><div class="big">…</div><h3>Яндекс Urban Ads — на согласовании</h3>
+      <p>Запрос отправлен, ждём ответ площадки. В плане стоит вторым флайтом; бенчмарки по сегментам — расчётные,
+      уточним после ответа.</p></div>
+    <div class="card"><div class="big">—</div><h3>WB Media — недоступен</h3>
+      <p>У Wildberries собственный сервис WB Тревел, конкурирующие тревел-бренды к размещению не допускаются.
+      Бюджет этого источника концентрируем в двух других.</p></div>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">03</div>
+  <div class="kicker"><div class="bar"></div><span>Три сценария · в месяц · Ozon + Urban Ads</span></div>
+  <h2>Сколько вкладываем —<br>сколько получаем</h2>
+  <div style="overflow-x:auto">
+  <table class="bench">
+    <tr><th>Сценарий</th><th>На источник</th><th>Медиабюджет</th><th>Сопровождение</th><th>Итого / мес</th><th>Показы</th><th>Клики</th><th>CPC медиа</th><th>CPC с сопровождением</th></tr>
+      <tr><td>Тест</td><td>120 000 ₽</td><td>240 000 ₽</td><td>80 000 ₽</td><td><b style="color:var(--yellow)">320 000 ₽</b></td><td>1 251 000</td><td>1 920</td><td>125 ₽</td><td>167 ₽</td></tr>
+      <tr><td>Рекомендуем</td><td>200 000 ₽</td><td>400 000 ₽</td><td>80 000 ₽</td><td><b style="color:var(--yellow)">480 000 ₽</b></td><td>2 085 000</td><td>3 200</td><td>125 ₽</td><td>150 ₽</td></tr>
+      <tr><td>Федеральный флайт</td><td>400 000 ₽</td><td>800 000 ₽</td><td>80 000 ₽</td><td><b style="color:var(--yellow)">880 000 ₽</b></td><td>4 170 000</td><td>6 400</td><td>125 ₽</td><td>138 ₽</td></tr>
+  </table>
+  </div>
+  <div class="note"><b>Сопровождение двух источников — 80 000 ₽/мес</b> на тестовый период (скидка 20% от прайса 100 000 ₽):
+  ведение кампаний, креативы, аналитический контур, замеры, недельная и месячная отчётность. Показы и клики — расчёт по CPM и CTR
+  ваших сегментов из кабинетов площадок при равном делении бюджета источника между тремя сегментами.</div>
+  <div class="foot"><b>Тест</b> — Минимальный порог площадок: 120 000 ₽ на источник.<br><b>Рекомендуем</b> — Быстрый набор статистики по сегментам для федеральной сети.<br><b>Федеральный флайт</b> — Ускоренный набор охвата под окно раннего бронирования.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">04</div>
+  <div class="kicker"><div class="bar"></div><span>Разбивка по сегментам · сценарий «Рекомендуем» · 200 000 ₽ на источник</span></div>
+  <h2>Что даёт каждый сегмент<br>за месяц</h2>
+  <div style="overflow-x:auto">
+  <table class="bench">
+    <tr><th>Сегмент</th><th>Источник</th><th>Бюджет</th><th>CPM</th><th>Показы</th><th>CTR</th><th>Клики</th><th>CPC</th><th>Ёмкость: уникальных пользователей / мес</th></tr>
+      <tr><td>Ozon Travel + Путешествия (аксессуары)</td><td>Ozon Performance</td><td>66 667 ₽</td><td>170.00 ₽</td><td>392 157</td><td>0.23%</td><td>902</td><td>73.91 ₽</td><td>19 458 325</td></tr>
+      <tr><td>Пляжная одежда + солнцезащита (сезон)</td><td>Ozon Performance</td><td>66 667 ₽</td><td>143.00 ₽</td><td>466 200</td><td>0.15%</td><td>699</td><td>95.33 ₽</td><td>7 191 660</td></tr>
+      <tr><td>Широкая 25–55, города вылета</td><td>Ozon Performance</td><td>66 667 ₽</td><td>144.00 ₽</td><td>462 963</td><td>0.11%</td><td>509</td><td>130.91 ₽</td><td>21 646 162</td></tr>
+      <tr><td>Итого Ozon Performance</td><td></td><td>200 000 ₽</td><td>151.36 ₽</td><td>1 321 320</td><td>0.16%</td><td>2 111</td><td>94.76 ₽</td><td></td></tr>
+      <tr><td>Чемоданы + путешествия-интересы</td><td>Яндекс Urban Ads</td><td>66 667 ₽</td><td>268.00 ₽</td><td>248 756</td><td>0.18%</td><td>448</td><td>148.89 ₽</td><td>14 945 220</td></tr>
+      <tr><td>Семьи (прогулки и путешествия)</td><td>Яндекс Urban Ads</td><td>66 667 ₽</td><td>263.00 ₽</td><td>253 485</td><td>0.15%</td><td>380</td><td>175.33 ₽</td><td>7 050 460</td></tr>
+      <tr><td>Широкая, доход средний+</td><td>Яндекс Urban Ads</td><td>66 667 ₽</td><td>255.00 ₽</td><td>261 438</td><td>0.10%</td><td>261</td><td>255.00 ₽</td><td>9 638 770</td></tr>
+      <tr><td>Итого Яндекс Urban Ads</td><td></td><td>200 000 ₽</td><td>261.89 ₽</td><td>763 680</td><td>0.14%</td><td>1 089</td><td>183.58 ₽</td><td></td></tr>
+      <tr><td>Итого два источника</td><td></td><td>400 000 ₽</td><td>—</td><td>2 085 000</td><td>—</td><td>3 200</td><td>125.00 ₽</td><td></td></tr>
+  </table>
+  </div>
+  <div class="foot">Ёмкость — размер сегмента в кабинете площадки; бюджет теста выкупает доли процента показов, есть куда масштабироваться.
+  Оценка охвата теста при средней частоте 3 показа на человека: 695 000 человек в месяц. Аудитории площадок не складываются —
+  один человек может быть и на Ozon, и в сервисах Яндекса. Urban Ads: бенчмарки расчётные до ответа площадки.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">05</div>
+  <div class="kicker"><div class="bar"></div><span>Заявки · сценарий «Рекомендуем» · 3 200 кликов в месяц</span></div>
+  <h2>Подставьте свою конверсию —<br>получите цену заявки</h2>
+  <div class="cards">
+    <div class="card"><div class="big">32</div><h3>заявок в месяц при конверсии 1%</h3>
+      <p>Стоимость заявки: <b>15 000 ₽</b> с учётом сопровождения · 12 500 ₽ по медиабюджету</p></div>
+    <div class="card"><div class="big">48</div><h3>заявок в месяц при конверсии 1.5%</h3>
+      <p>Стоимость заявки: <b>10 000 ₽</b> с учётом сопровождения · 8 333 ₽ по медиабюджету</p></div>
+    <div class="card"><div class="big">64</div><h3>заявок в месяц при конверсии 2%</h3>
+      <p>Стоимость заявки: <b>7 500 ₽</b> с учётом сопровождения · 6 250 ₽ по медиабюджету</p></div>
+  </div>
+  <div class="note"><b>Конверсия клика в заявку — ваша цифра.</b> Для агрегатора туров заявка — подбор тура, звонок или заявка в офис сети.
+  На созвоне подставим вашу конверсию с трафика Директа и таргета: расчёт в приложенном Excel пересчитывается автоматически.
+  Медийный трафик в моменте конвертирует ниже перформанса и добирает post-view: увидел баннер, пришёл сам через две недели —
+  этот слой считаем отдельно, при цикле покупки тура 1–6 месяцев без него до 99% эффекта не видно в отчётах по последнему клику.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">06</div>
+  <div class="kicker"><div class="bar"></div><span>Календарь теста · 8 недель</span></div>
+  <h2>Старт в октябре — в пик<br>раннего бронирования лета</h2>
+  <div class="rows">
+    <div class="row"><div class="l">До старта · 1–2 недели</div><div class="r">Кабинет Ozon открывается за 3–5 рабочих дней (площадка одобрила), запуск кампании — от 7 дней. Посадочные под сегменты («туры к морю», «семейные туры»), пиксели площадок и UTM, замер «до» по Вордстату — бесплатно, до договора.</div></div>
+    <div class="row"><div class="l">Недели 1–2 · тест</div><div class="r">Ozon: три сегмента плюс сегмент с высокой пользовательской активностью от площадки; первые бенчмарки CPM/CTR/CPC по факту. Urban Ads — подключаем по ответу площадки вторым флайтом.</div></div>
+    <div class="row"><div class="l">Недели 3–6 · связка</div><div class="r">Отключаем слабые сегменты, перераспределяем бюджет по стоимости клика и заявки; под бюджет согласовываем с Ozon кастомный сегмент путешественников; креативы под раннее бронирование.</div></div>
+    <div class="row"><div class="l">Недели 7–8 · масштабирование</div><div class="r">Наращиваем лучшие связки; документ-решение по итогам теста: что продолжаем, что останавливаем — по вашим критериям.</div></div>
+    <div class="row"><div class="l">Замеры</div><div class="r">Search lift по Вордстату («слетать ру», «слетать туры» против контрольного «горящие туры») и post-view слой — с первого дня, на любом бюджете. Brand Lift Яндекса — бесплатно при охвате от 2 млн, после подключения Urban Ads.</div></div>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">07</div>
+  <div class="kicker"><div class="bar"></div><span>Условия и следующий шаг</span></div>
+  <h2>Что нужно, чтобы стартовать<br>в октябре</h2>
+  <div class="rows">
+    <div class="row"><div class="l">Бюджет</div><div class="r">От 120 000 ₽ в месяц на источник; рекомендуем 200 000 ₽ — итого 480 000 ₽ в месяц на два источника с сопровождением. Старт только с Ozon до ответа Urban Ads: 200 000 ₽ медиа + 50 000 ₽ сопровождение = 250 000 ₽, 2 111 кликов в месяц.</div></div>
+    <div class="row"><div class="l">Срок</div><div class="r">Контракт от шести месяцев, первые 8 недель — тестовый период со скидкой на сопровождение. Медийный эффект читается на горизонте 6–8 недель, решения по бюджету — по кварталу.</div></div>
+    <div class="row"><div class="l">Данные</div><div class="r">Ваша конверсия в заявку, доступ к Метрике, база туристов для CRM-сегмента (хэш телефонов) — под look-a-like на обеих площадках.</div></div>
+    <div class="row"><div class="l">Рессейлинг</div><div class="r">Параллельно открываем кабинеты для инхаус-команды: Директ, VK Ads, Telegram Ads и ещё 10 систем в одном окне; бонусные рубли по шкале Церебро с расхода от 360 001 ₽ в месяц.</div></div>
+  </div>
+  <div class="yline">Следующий шаг — созвон на 20 минут: подставляем вашу конверсию, фиксируем сценарий и дату старта.<br>Церебро Таргет · направление Click Out · clickout.cerebrotarget.ru</div>
+  <div class="mark">Ц</div>
+</section>
+</body>
+</html>
