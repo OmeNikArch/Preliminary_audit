@@ -27,7 +27,6 @@ SECTIONS = [
     ('libertad-choco.html', 'Libertad', 'Производство и опт шоколада · Химки · domchoco.ru'),
     ('meco-drinks.html', 'Meco', 'Холодный чай из Китая · импорт и дистрибуция · Meco.Moscow'),
     ('neo-produkt.html', 'НЕО Продукт', 'Молочные продукты и сыры · neoproduct.ru'),
-    ('jfk-international.html', 'JFK International', 'Кофе, чай, рис, специи · экспорт из Индии · jfk.in'),
   ]),
   ('Выход на рынок РФ · China', [
     ('planet-toys.html', 'Planet Toys', 'toy manufacturing and export · —'),
@@ -77,6 +76,7 @@ SECTIONS = [
     ('kape-kapi.html', 'Kape Kapi & Exports', 'green, roasted and instant coffee · kapekapi.com'),
     ('sln-coffee.html', 'SLN Coffee', 'instant coffee · slncoffee.com'),
     ('smoky-falls.html', 'Smoky Falls Tribe Coffee', 'roasted Arabica and Robusta coffee · —'),
+    ('jfk-international.html', 'JFK International', 'coffee, tea, rice, spices and dried fruit export · jfk.in'),
     ('iopepc.html', 'IOPEPC', 'export promotion council for Indian oilseeds and produce · iopepc.org'),
   ]),
 ]
