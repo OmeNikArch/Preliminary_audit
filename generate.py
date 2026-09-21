@@ -566,6 +566,21 @@ def build_index():
         f'<p>{c["niche_ru"]} · {c["site"]}</p>{extra_links(c)}</div>'
         for c in CLIENTS.values()
     )
+
+    # Аудиты с выставок подключаются, если рядом лежит expo_index.py (его пишет
+    # build_audits.py). Без него индекс собирается как раньше.
+    try:
+        from expo_index import SECTIONS
+    except ImportError:
+        SECTIONS = []
+    extra_sections = ""
+    for title, recs in SECTIONS:
+        cards = "".join(
+            f'<div class="card"><h3><a href="{f}" style="color:var(--yellow);text-decoration:none">{n}</a></h3>'
+            f'<p>{d}</p></div>' for f, n, d in recs)
+        extra_sections += (
+            f'<div class="kicker" style="margin-top:44px"><div class="bar"></div>'
+            f'<span>{title}</span></div><div class="cards">{cards}</div>')
     return f"""<!doctype html>
 <html lang="ru">
 <head>
@@ -583,6 +598,7 @@ def build_index():
   <div class="kicker"><div class="bar"></div><span>Предварительные аудиты · ОТДЫХ Leisure и Конгресс офтальмологии · 02–04.09</span></div>
   <h1>Аудиты по заявкам<br>с выставки</h1>
   <div class="cards" style="margin-top:20px">{items}</div>
+  {extra_sections}
   <div class="mark">Ц</div>
 </section>
 </body>
