@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Preliminary audit · Chikoff Trading · Cerebro Click Out</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --card:#272727; --card2:#111;
+    --txt:#E7E6E6; --mute:#A5A5A5; --yellow:#FDD101; --white:#fff;
+    --head:'Unbounded', Arial, sans-serif; --body:Arial, Helvetica, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--body)}
+  section{min-height:100vh;padding:6vh 7vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-bottom:1px solid #1a1a1a}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .kicker .bar{width:44px;height:8px;background:var(--yellow)}
+  .kicker span{font-family:var(--head);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--yellow);text-transform:uppercase}
+  .num{position:absolute;top:5vh;right:7vw;color:var(--mute);font-size:14px}
+  h1{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(28px,4.6vw,58px);line-height:1.1;margin-bottom:24px}
+  h2{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(23px,3.2vw,42px);line-height:1.14;margin-bottom:26px}
+  .sub{font-size:clamp(16px,1.6vw,22px);line-height:1.45;max-width:70ch}
+  .sub b{color:var(--white)}
+  .yline{color:var(--yellow);font-family:var(--head);font-weight:700;font-size:clamp(16px,1.7vw,24px);margin-top:32px;line-height:1.3}
+  .logo{display:flex;align-items:center;gap:16px;margin-bottom:44px}
+  .logo .sign{width:56px;height:56px;background:var(--white);border:7px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:26px}
+  .logo .nm{font-family:var(--head);font-weight:700;color:var(--white);font-size:18px;line-height:1.25}
+  .mark{position:absolute;bottom:5vh;right:7vw;width:38px;height:38px;background:var(--white);border:5px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:17px;opacity:.9}
+  .cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:10px}
+  .card{background:var(--card);border-radius:18px;padding:26px 28px}
+  .card h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:12px}
+  .card p{font-size:clamp(13px,1.15vw,17px);line-height:1.5;color:var(--txt)}
+  .card .big{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(26px,3.2vw,44px);line-height:1;margin-bottom:10px}
+  .card .cap{color:var(--mute);font-size:13px;margin-top:12px;line-height:1.4}
+  .stats{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:14px}
+  .stat .n{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(30px,4vw,56px);line-height:1}
+  .stat .t{color:var(--txt);font-size:clamp(13px,1.15vw,17px);margin-top:10px;line-height:1.4}
+  .rows{margin-top:12px;max-width:1150px}
+  .row{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:26px;padding:20px 0;border-top:1px solid #232323;align-items:start}
+  .row .l{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(14px,1.3vw,19px)}
+  .row .r{font-size:clamp(14px,1.2vw,18px);line-height:1.5}
+  .foot{margin-top:34px;color:var(--mute);font-size:clamp(12px,1vw,15px);line-height:1.5;max-width:80ch}
+  .price{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:10px}
+  .p{background:var(--card2);border:1px solid #262626;border-radius:18px;padding:26px 28px;position:relative}
+  .p.best{border-color:var(--yellow)}
+  .p .tag{position:absolute;top:-13px;left:26px;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px}
+  .p h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:16px}
+  .p .was{color:var(--mute);text-decoration:line-through;font-size:15px}
+  .p .now{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(24px,2.8vw,38px);line-height:1.1;margin:6px 0 4px}
+  .p .per{color:var(--mute);font-size:13px}
+  .p ul{list-style:none;margin-top:16px}
+  .p li{font-size:clamp(13px,1.1vw,16px);line-height:1.5;padding-left:18px;position:relative;margin-bottom:8px}
+  .p li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg{list-style:none;margin-top:6px}
+  ul.seg li{font-size:clamp(14px,1.2vw,18px);line-height:1.55;padding-left:20px;position:relative;margin-bottom:9px}
+  ul.seg li:before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg li b{color:var(--white)}
+  .grid2{display:grid;gap:34px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin-top:10px}
+  .colh{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.5vw,21px);margin-bottom:14px}
+  table.bench{border-collapse:collapse;margin-top:14px;width:100%;max-width:1100px}
+  table.bench th{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(12px,1.05vw,15px);text-align:left;padding:12px 16px;border-bottom:2px solid var(--yellow);text-transform:uppercase;letter-spacing:.05em}
+  table.bench td{font-size:clamp(13px,1.15vw,17px);padding:12px 16px;border-bottom:1px solid #232323;line-height:1.45}
+  table.bench td:first-child{font-family:var(--head);font-weight:700;color:var(--white)}
+  table.bench .tbd{color:var(--mute)}
+  .pill{display:inline-block;background:#151515;border:1px solid #333;border-radius:100px;color:var(--txt);font-size:clamp(12px,1.05vw,15px);padding:8px 16px;margin:0 8px 10px 0;line-height:1.4}
+  .pill b{color:var(--yellow);font-family:var(--head);font-weight:700}
+  .note{display:inline-block;background:#0d0d0d;border-left:5px solid var(--yellow);border-radius:0 12px 12px 0;padding:16px 20px;margin-top:24px;font-size:clamp(13px,1.1vw,16px);line-height:1.55;color:#cfcfcf;max-width:80ch}
+  .note b{color:var(--white)}
+  @media screen and (max-width:1100px){
+    .price{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr;gap:8px}
+    .grid2{grid-template-columns:1fr}
+    section{padding:7vh 8vw}
+  }
+  @media print{
+    @page{size:1600px 1500px;margin:0}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    html,body{background:#000}
+    section{min-height:auto;height:auto;page-break-inside:avoid;page-break-after:always;padding:70px 90px;border-bottom:none;justify-content:flex-start}
+    .num{top:60px;right:90px}
+    .mark{bottom:60px;right:90px}
+  }
+</style>
+</head>
+<body>
+
+<section>
+  <div class="logo"><div class="sign">Ц</div><div class="nm">Cerebro<br>Target</div></div>
+  <div class="kicker"><div class="bar"></div><span>Preliminary audit · Entering the Russian market</span></div>
+  <h1>Preliminary audit:<br>Chikoff Trading</h1>
+  <p class="sub">A short briefing for Chikoff Trading on entering the Russian market: what the category looks like on Russian marketplaces, what advertising inside Ozon, Yandex and Wildberries can do for a supplier from India, and what has to be in place before any of it starts.</p>
+  <div class="yline">Ozon Performance · Yandex Urban Ads · Wildberries Media</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">01</div>
+  <div class="kicker"><div class="bar"></div><span>Why we are writing</span></div>
+  <h2>What we know about you<br>and what we can do</h2>
+  <div class="rows"><div class="row"><div class="l">What you do</div><div class="r">Chikoff Trading — instant and green coffee, chicory blends and capsules, India. We took this from your business card and the exhibitor catalogue at the show, so if anything here is off, correct us on the call.</div></div><div class="row"><div class="l">Where Russia fits</div><div class="r">The Russian instant coffee market reached ₽316 bn in 2025, growing 16% in a year, and coffee e-commerce passed ₽30 bn. Almost all of that competition runs on price — the buyer compares grams and roast, and never sees who grew or processed the beans.</div></div><div class="row"><div class="l">What we can do</div><div class="r">We are a Russian agency running advertising inside Ozon, Yandex and Wildberries. For a supplier entering the market that means two things: building recognition with Russian buyers before your competitors do, and doing it in the environment where those buyers already shop.</div></div><div class="row"><div class="l">What has to be in place first</div><div class="r">Platform advertising accounts are opened for a Russian legal entity only — yours or a distributor's. We are saying this upfront rather than after a proposal. If you do not have one, we can help you arrange it with our partners: with a serious contract on the table this is a solvable step, not a dead end.</div></div></div>
+  <div class="foot">Prepared from your business card and the exhibitor catalogue at World Food Moscow · 15–18.09.2026, plus public data. This is a starting point for a conversation, not a finished proposal.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">02</div>
+  <div class="kicker"><div class="bar"></div><span>Your category in Russia</span></div>
+  <h2>Instant coffee in Russia:<br>₽316 bn and growing 16% a year</h2>
+  <div class="stats"><div class="stat"><div class="n">316</div><div class="t">billion ₽ — Russian instant coffee market in 2025, up 16% in a year (BusinesStat)</div></div><div class="stat"><div class="n">+37%</div><div class="t">growth of the instant coffee market over five years, from ₽231 bn in 2021</div></div><div class="stat"><div class="n">30</div><div class="t">billion ₽ — coffee sold through Russian e-commerce, with whole-bean demand up 20%</div></div><div class="stat"><div class="n">6</div><div class="t">trillion ₽ — combined sales of Wildberries, Ozon and Yandex Market over 9 months of 2025</div></div>
+  </div>
+  <p class="sub" style="margin-top:34px">Coffee is one of the most competitive categories on Russian marketplaces, and almost all of that competition is on price: the buyer compares grams and roast level, and rarely sees who produced the beans. That is the opening. A supplier whose name the buyer already recognises stops competing on price alone — and in a market growing 16% a year, that recognition is still cheap to build.</p>
+  <div class="foot">Sources: BusinesStat / TAdviser (2026), 1prime.ru (2025), retail.ru (2025).</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">03</div>
+  <div class="kicker"><div class="bar"></div><span>How market entry works</span></div>
+  <h2>Three things have to be in place<br>before advertising starts</h2>
+  <div class="rows"><div class="row"><div class="l">1 · A Russian legal entity</div><div class="r">Ozon, Yandex and Wildberries open advertising accounts for a Russian company or sole trader only — yours or your distributor's. This is the one hard requirement, and it is the reason we put it first rather than at the end of a proposal. If you do not have one yet, we can help you arrange it together with our partners.</div></div><div class="row"><div class="l">2 · Presence on the shelf</div><div class="r">Your product needs listings on the marketplaces, or a Russian website. Advertising inside the platforms sends the buyer to your site or brand page — it cannot send them to a listing on a competing marketplace, that is a platform rule.</div></div><div class="row"><div class="l">3 · A way to count results</div><div class="r">Analytics on the landing page and platform pixels from day one. Without them the post-view layer — orders from people who saw the banner and did not click — is simply not recorded.</div></div></div>
+  <div class="foot">Account opening takes 3–5 working days once the legal entity is in place; a campaign
+  goes live 7 days after platform approval. We say this plainly because the sequence matters more
+  than the budget.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">04</div>
+  <div class="kicker"><div class="bar"></div><span>Where Russians buy</span></div>
+  <h2>Three platforms, one buying moment</h2>
+  <div class="cards">
+    <div class="card"><div class="big">65 M</div><h3>Ozon</h3><p>active buyers in 2025, 38 orders per person on average. 83% of them live outside Moscow and St Petersburg.</p></div>
+    <div class="card"><div class="big">94 M</div><h3>Yandex</h3><p>monthly audience across Market, Eda, Lavka, Go and Kinopoisk. 60% have middle income or above.</p></div>
+    <div class="card"><div class="big">78%</div><h3>Wildberries</h3><p>of the audience are women aged 25–44 — the core grocery and kids-goods decision maker in a Russian household.</p></div>
+  </div>
+  <p class="sub" style="margin-top:30px">These platforms sell advertising impressions to outside advertisers. The buyer sees
+  your banner inside the marketplace, in the moment they are already shopping, and the click takes them to your site.
+  Very few suppliers in food and kids categories buy these formats — the auction there is far cheaper than
+  the one for a position inside search results.</p>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">05</div>
+  <div class="kicker"><div class="bar"></div><span>Targeting · your category</span></div>
+  <h2>Who we can select for your product</h2>
+  <div class="rows"><div class="row"><div class="r">Buyers in the <b>Groceries → Coffee and tea</b> category on Ozon, Yandex Market and Wildberries</div></div><div class="row"><div class="r">Buyers of coffee machines and accessories — the equipment signals a regular coffee drinker</div></div><div class="row"><div class="r">Yandex Lavka and Yandex Eda users — daily grocery delivery</div></div><div class="row"><div class="r">B2B segment on Ozon: HoReCa, offices, coffee shop chains and private-label buyers</div></div></div>
+  <div class="foot">Ozon targeting: authorisation status, demographics, region, category buyers and viewers,
+  Active Premium, B2B client, custom segment from hashed phone numbers. Yandex adds income, Plus subscription
+  and CRM retargeting. Wildberries adds DMP behaviour — cart and wishlist activity over the last 30 days.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">06</div>
+  <div class="kicker"><div class="bar"></div><span>Formats and benchmarks</span></div>
+  <h2>What the formats cost</h2>
+  <div class="rows"><div class="row"><div class="l">Ozon Performance</div><div class="r">Video banner, banner on the home page and in search, placement inside a product card, and the order-complete screen. Paid on a vCPM basis: an impression counts when at least 50% of the banner is visible for at least 2 seconds.</div></div><div class="row"><div class="l">Yandex Urban Ads</div><div class="r">Video banner — average CPM 641 ₽, average CPC 100 ₽. Stretch banner — CPM 182 ₽, CPC 44 ₽. Horizontal banner — CPM 342 ₽, CPC 98 ₽. Vertical banner — CPM 96 ₽, CPC 29 ₽. Minimum CPM bid 50 ₽.</div></div><div class="row"><div class="l">Wildberries Media</div><div class="r">Banner placements across the platform with DMP behavioural targeting. The category with the strongest audience match for food and kids goods.</div></div><div class="row"><div class="l">Benchmarks for you</div><div class="r">Reach, impressions, clicks, CPM, CTR and CPC for your specific segments are pulled from the platform accounts during the audit. We do not quote category averages as if they were your numbers.</div></div></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">07</div>
+  <div class="kicker"><div class="bar"></div><span>What we measure</span></div>
+  <h2>How you will know<br>whether it worked</h2>
+  <div class="rows"><div class="row"><div class="l">Search lift</div><div class="r">A study by Easy Commerce across 20 brands running media on Ozon measured the increase in branded search: up to ₽100k budget — 5–12% growth; ₽100–300k — 15–35%; above ₽300k — 40–90%. For a supplier entering a new market this is the clearest early signal: more people are typing your name.</div></div><div class="row"><div class="l">Brand lift</div><div class="r">Yandex Brand Lift is free at budgets from around ₽1m and reach from 2m: ad recall, brand awareness, purchase intent, top of mind.</div></div><div class="row"><div class="l">Sales lift</div><div class="r">Yandex Sales Lift, reach from 2m over 4–6 weeks. In the Polaris case, people who saw the media campaign made 34% of all the brand's online purchases, while post-click attribution credited under 1%.</div></div><div class="row"><div class="l">Post-view</div><div class="r">Ozon attributes orders for 30 days after banner contact. Yandex offers a post-view window of up to 90 days through the Metrica pixel.</div></div></div>
+  <div class="foot">These are Russian retail media benchmarks from published studies, not our own client results
+  and not a forecast for your brand. Your own numbers appear after the first 6–8 week flight.</div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">08</div>
+  <div class="kicker"><div class="bar"></div><span>Commercial terms</span></div>
+  <h2>What working together looks like</h2>
+  <div class="cards">
+    <div class="card"><div class="big">1</div><h3>One source</h3><p>50 000 ₽ per month of management. Ozon, Urban Ads or Wildberries — your choice.</p></div>
+    <div class="card"><div class="big">2</div><h3>Two sources</h3><p>80 000 ₽ per month for the test period. Comparison between platforms on your own data.</p></div>
+    <div class="card"><div class="big">3</div><h3>Three sources</h3><p>90 000 ₽ per month for the test period. Different environments, frequency one channel cannot give.</p></div>
+  </div>
+  <div class="rows"><div class="row"><div class="l">Media budget</div><div class="r">From 100 000 ₽ per month per source — below that a platform does not gather enough volume to draw conclusions. We recommend from 200 000 ₽ per source.</div></div><div class="row"><div class="l">Term</div><div class="r">From six months. Media effects read on a 6–8 week horizon; budget decisions are taken quarterly.</div></div><div class="row"><div class="l">Included</div><div class="r">Campaign management, creatives, the analytics setup, lift measurement, reporting, and a written go / no-go decision at the end of the cycle.</div></div><div class="row"><div class="l">What we do not promise</div><div class="r">Guaranteed results, a number or cost of orders, or a refund. We promise transparent budgets, tested hypotheses and an honest answer when the test says no.</div></div></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">09</div>
+  <div class="kicker"><div class="bar"></div><span>Next step</span></div>
+  <h1>Next step — a 20 minute call</h1>
+  <p class="sub">On the call: the size of the audience segments for your category, current benchmarks from the platform accounts, and an honest view of what entry would cost and how long it would take. If we think the Russian market is not worth it for your product right now, we will say so.</p>
+  <div class="yline">Cerebro Target · Click Out<br>clickout.cerebrotarget.ru</div>
+  <div class="mark">Ц</div>
+</section>
+</body>
+</html>
