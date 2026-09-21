@@ -172,11 +172,11 @@ def build(client_key, c):
     s.append(f"""
 <section>
   <div class="num">{num()}</div>
-  <div class="kicker"><div class="bar"></div><span>Что мы услышали на встрече</span></div>
-  <h2>Точка старта: как это устроено<br>у вас сейчас</h2>
+  <div class="kicker"><div class="bar"></div><span>{c.get('meeting_kicker', 'Что мы услышали на встрече')}</span></div>
+  <h2>{c.get('meeting_h2', 'Точка старта: как это устроено<br>у вас сейчас')}</h2>
   <div class="rows">{"".join(f'<div class="row"><div class="l">{l}</div><div class="r">{r}</div></div>' for l, r in c['meeting_rows'])}
   </div>
-  <div class="foot">Источник: разговор на выставке {c['expo']}. Формулировки сохранены близко к сказанному — если что-то передано неточно, поправим на созвоне.</div>
+  <div class="foot">{c.get('meeting_foot', f"Источник: разговор на выставке {c['expo']}. Формулировки сохранены близко к сказанному — если что-то передано неточно, поправим на созвоне.")}</div>
   <div class="mark">Ц</div>
 </section>""")
 

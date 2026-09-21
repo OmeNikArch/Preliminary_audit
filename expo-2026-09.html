@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Предварительные аудиты · выставки сентября 2026 · Cerebro Click Out</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --card:#272727; --card2:#111;
+    --txt:#E7E6E6; --mute:#A5A5A5; --yellow:#FDD101; --white:#fff;
+    --head:'Unbounded', Arial, sans-serif; --body:Arial, Helvetica, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--body)}
+  section{min-height:100vh;padding:6vh 7vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-bottom:1px solid #1a1a1a}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .kicker .bar{width:44px;height:8px;background:var(--yellow)}
+  .kicker span{font-family:var(--head);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--yellow);text-transform:uppercase}
+  .num{position:absolute;top:5vh;right:7vw;color:var(--mute);font-size:14px}
+  h1{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(28px,4.6vw,58px);line-height:1.1;margin-bottom:24px}
+  h2{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(23px,3.2vw,42px);line-height:1.14;margin-bottom:26px}
+  .sub{font-size:clamp(16px,1.6vw,22px);line-height:1.45;max-width:70ch}
+  .sub b{color:var(--white)}
+  .yline{color:var(--yellow);font-family:var(--head);font-weight:700;font-size:clamp(16px,1.7vw,24px);margin-top:32px;line-height:1.3}
+  .logo{display:flex;align-items:center;gap:16px;margin-bottom:44px}
+  .logo .sign{width:56px;height:56px;background:var(--white);border:7px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:26px}
+  .logo .nm{font-family:var(--head);font-weight:700;color:var(--white);font-size:18px;line-height:1.25}
+  .mark{position:absolute;bottom:5vh;right:7vw;width:38px;height:38px;background:var(--white);border:5px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:17px;opacity:.9}
+  .cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:10px}
+  .card{background:var(--card);border-radius:18px;padding:26px 28px}
+  .card h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:12px}
+  .card p{font-size:clamp(13px,1.15vw,17px);line-height:1.5;color:var(--txt)}
+  .card .big{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(26px,3.2vw,44px);line-height:1;margin-bottom:10px}
+  .card .cap{color:var(--mute);font-size:13px;margin-top:12px;line-height:1.4}
+  .stats{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:14px}
+  .stat .n{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(30px,4vw,56px);line-height:1}
+  .stat .t{color:var(--txt);font-size:clamp(13px,1.15vw,17px);margin-top:10px;line-height:1.4}
+  .rows{margin-top:12px;max-width:1150px}
+  .row{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:26px;padding:20px 0;border-top:1px solid #232323;align-items:start}
+  .row .l{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(14px,1.3vw,19px)}
+  .row .r{font-size:clamp(14px,1.2vw,18px);line-height:1.5}
+  .foot{margin-top:34px;color:var(--mute);font-size:clamp(12px,1vw,15px);line-height:1.5;max-width:80ch}
+  .price{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:10px}
+  .p{background:var(--card2);border:1px solid #262626;border-radius:18px;padding:26px 28px;position:relative}
+  .p.best{border-color:var(--yellow)}
+  .p .tag{position:absolute;top:-13px;left:26px;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px}
+  .p h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:16px}
+  .p .was{color:var(--mute);text-decoration:line-through;font-size:15px}
+  .p .now{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(24px,2.8vw,38px);line-height:1.1;margin:6px 0 4px}
+  .p .per{color:var(--mute);font-size:13px}
+  .p ul{list-style:none;margin-top:16px}
+  .p li{font-size:clamp(13px,1.1vw,16px);line-height:1.5;padding-left:18px;position:relative;margin-bottom:8px}
+  .p li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg{list-style:none;margin-top:6px}
+  ul.seg li{font-size:clamp(14px,1.2vw,18px);line-height:1.55;padding-left:20px;position:relative;margin-bottom:9px}
+  ul.seg li:before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg li b{color:var(--white)}
+  .grid2{display:grid;gap:34px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin-top:10px}
+  .colh{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.5vw,21px);margin-bottom:14px}
+  table.bench{border-collapse:collapse;margin-top:14px;width:100%;max-width:1100px}
+  table.bench th{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(12px,1.05vw,15px);text-align:left;padding:12px 16px;border-bottom:2px solid var(--yellow);text-transform:uppercase;letter-spacing:.05em}
+  table.bench td{font-size:clamp(13px,1.15vw,17px);padding:12px 16px;border-bottom:1px solid #232323;line-height:1.45}
+  table.bench td:first-child{font-family:var(--head);font-weight:700;color:var(--white)}
+  table.bench .tbd{color:var(--mute)}
+  .pill{display:inline-block;background:#151515;border:1px solid #333;border-radius:100px;color:var(--txt);font-size:clamp(12px,1.05vw,15px);padding:8px 16px;margin:0 8px 10px 0;line-height:1.4}
+  .pill b{color:var(--yellow);font-family:var(--head);font-weight:700}
+  .note{display:inline-block;background:#0d0d0d;border-left:5px solid var(--yellow);border-radius:0 12px 12px 0;padding:16px 20px;margin-top:24px;font-size:clamp(13px,1.1vw,16px);line-height:1.55;color:#cfcfcf;max-width:80ch}
+  .note b{color:var(--white)}
+  @media screen and (max-width:1100px){
+    .price{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr;gap:8px}
+    .grid2{grid-template-columns:1fr}
+    section{padding:7vh 8vw}
+  }
+  @media print{
+    @page{size:1600px 1500px;margin:0}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    html,body{background:#000}
+    section{min-height:auto;height:auto;page-break-inside:avoid;page-break-after:always;padding:70px 90px;border-bottom:none;justify-content:flex-start}
+    .num{top:60px;right:90px}
+    .mark{bottom:60px;right:90px}
+  }
+</style>
+</head>
+<body>
+<section style="justify-content:flex-start;padding-top:8vh">
+  <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
+  <div class="kicker"><div class="bar"></div><span>Мир детства · World Food Moscow · сентябрь 2026</span></div>
+  <h1>Аудиты по контактам<br>с выставок</h1>
+  <div class="kicker" style="margin-top:34px"><div class="bar"></div><span>Детские товары и игрушки</span></div><div class="cards"><div class="card"><h3><a href="polesie-toys.html" style="color:var(--yellow);text-decoration:none">Полесье (Polesie Toys)</a></h3><p>Производство пластмассовых игрушек · polesie-toys.com</p></div><div class="card"><h3><a href="simbat.html" style="color:var(--yellow);text-decoration:none">СИМБАТ</a></h3><p>Создание и дистрибуция брендов игрушек · igr.ru</p></div><div class="card"><h3><a href="brick-labs.html" style="color:var(--yellow);text-decoration:none">BRICK LABS</a></h3><p>Конструкторы · группа Inventive · bricklabs.ru</p></div><div class="card"><h3><a href="inventive-toys.html" style="color:var(--yellow);text-decoration:none">Inventive Toys</a></h3><p>Оптовая дистрибуция игрушек · inventive-toys.ru</p></div><div class="card"><h3><a href="ural-toys.html" style="color:var(--yellow);text-decoration:none">URAL TOYS</a></h3><p>Торгово-производственная компания · игрушки · ural.toys</p></div><div class="card"><h3><a href="paremo.html" style="color:var(--yellow);text-decoration:none">PAREMO</a></h3><p>Развивающие игрушки и детская мебель</p></div><div class="card"><h3><a href="robotime.html" style="color:var(--yellow);text-decoration:none">ROBOTIME / Rolife</a></h3><p>Деревянные конструкторы и DIY-наборы · robotime.com</p></div></div><div class="kicker" style="margin-top:34px"><div class="bar"></div><span>Детская одежда</span></div><div class="cards"><div class="card"><h3><a href="nikastyle.html" style="color:var(--yellow);text-decoration:none">Nikastyle</a></h3><p>Детская функциональная одежда · nikastyle.ru</p></div><div class="card"><h3><a href="miasin.html" style="color:var(--yellow);text-decoration:none">Miasin</a></h3><p>Одежда и аксессуары для подростков · miasinopt.ru</p></div></div><div class="kicker" style="margin-top:34px"><div class="bar"></div><span>Товары для новорождённых</span></div><div class="cards"><div class="card"><h3><a href="deloras.html" style="color:var(--yellow);text-decoration:none">DELORAS</a></h3><p>Коляски, автокресла, стульчики для кормления · deloras.ru</p></div></div><div class="kicker" style="margin-top:34px"><div class="bar"></div><span>Сезонные товары</span></div><div class="cards"><div class="card"><h3><a href="tzar-elka.html" style="color:var(--yellow);text-decoration:none">Царь Ёлка</a></h3><p>Искусственные ёлки и новогодний декор · tzar-elka.ru</p></div></div><div class="kicker" style="margin-top:34px"><div class="bar"></div><span>Канцтовары и хозтовары</span></div><div class="cards"><div class="card"><h3><a href="samson-opt.html" style="color:var(--yellow);text-decoration:none">Самсон</a></h3><p>Опт канцелярских, офисных и хозяйственных товаров · samsonopt.ru</p></div></div><div class="kicker" style="margin-top:34px"><div class="bar"></div><span>Мясо, рыба, икра</span></div><div class="cards"><div class="card"><h3><a href="priokskoe.html" style="color:var(--yellow);text-decoration:none">Приокское (Приокская икра)</a></h3><p>Осетровое рыбоводство, икра · Алексин</p></div></div><div class="kicker" style="margin-top:34px"><div class="bar"></div><span>Спортпит и ЗОЖ</span></div><div class="cards"><div class="card"><h3><a href="fitness-food.html" style="color:var(--yellow);text-decoration:none">Фитнес Фуд (Bombbar, Snaq Fabriq, Chikalab)</a></h3><p>Спортивное питание и ЗОЖ-снеки · bombbar.ru</p></div><div class="card"><h3><a href="bombbar-horeca.html" style="color:var(--yellow);text-decoration:none">Бомббар · направление HoReCa</a></h3><p>Спортивное питание и ЗОЖ-снеки · HoReCa · bombbar.ru</p></div></div><div class="kicker" style="margin-top:34px"><div class="bar"></div><span>Кондитерка и снеки</span></div><div class="cards"><div class="card"><h3><a href="tomer.html" style="color:var(--yellow);text-decoration:none">TOMER</a></h3><p>Шоколад, конфеты, батончики, СТМ · tomerchoco.ru</p></div><div class="card"><h3><a href="libertad-choco.html" style="color:var(--yellow);text-decoration:none">Libertad</a></h3><p>Производство и опт шоколада · Химки · domchoco.ru</p></div></div><div class="kicker" style="margin-top:34px"><div class="bar"></div><span>Напитки</span></div><div class="cards"><div class="card"><h3><a href="meco-drinks.html" style="color:var(--yellow);text-decoration:none">Meco</a></h3><p>Холодный чай из Китая · импорт и дистрибуция · Meco.Moscow</p></div></div><div class="kicker" style="margin-top:34px"><div class="bar"></div><span>Продукты питания</span></div><div class="cards"><div class="card"><h3><a href="neo-produkt.html" style="color:var(--yellow);text-decoration:none">НЕО Продукт</a></h3><p>Молочные продукты и сыры · neoproduct.ru</p></div></div><div class="kicker" style="margin-top:34px"><div class="bar"></div><span>Кофе и чай</span></div><div class="cards"><div class="card"><h3><a href="jfk-international.html" style="color:var(--yellow);text-decoration:none">JFK International</a></h3><p>Кофе, чай, рис, специи · экспорт из Индии · jfk.in</p></div></div>
+  <div class="mark">Ц</div>
+</section>
+</body>
+</html>
